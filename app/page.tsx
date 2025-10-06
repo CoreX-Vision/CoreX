@@ -24,7 +24,7 @@ export default function Home() {
             </p>
             <div className="flex justify-center lg:justify-start items-center">
               <button className="group px-[20px] py-[15px] cursor-pointer bg-secondary rounded-md flex justify-center items-center mt-6 font-normal text-white hover:bg-primary transition-all duration-300 text-center">
-                Get Started
+                Get Start
                 <div className="ml-2 transform transition-transform duration-300 group-hover:rotate-45">
                   <RightUp color={"#fff"} />
                 </div>
