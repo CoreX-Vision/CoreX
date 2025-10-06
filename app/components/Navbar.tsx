@@ -4,7 +4,7 @@ import Logo from "@/public/assets/Logo2.png";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { RightUp } from "./Icon";
+import { FiArrowUpRight } from "react-icons/fi";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,9 +21,9 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "About Us", href: "#about" },
-    { name: "Service", href: "#services" },
-    { name: "Portfolio", href: "#portfolio" },
+    { name: "About Us", href: "/about" },
+    { name: "Service", href: "/services" },
+    { name: "Portfolio", href: "/portfolio" },
     { name: "Contact Us", href: "#contact" },
   ];
 
@@ -34,7 +34,7 @@ const Navbar = () => {
           isScrolled ? "bg-white shadow-sm" : "bg-background"
         }`}
       >
-        <div className="max-w-7xl mx-auto py-3 flex justify-between items-center px-[20px] lg:px-0">
+        <div className="mx-auto py-3 flex justify-between items-center px-[20px] lg:px-0">
           {/* Logo */}
           <Image
             src={Logo}
@@ -69,7 +69,7 @@ const Navbar = () => {
             <button className="group gap-1 px-5 py-3 cursor-pointer bg-primary rounded-md flex justify-center items-center font-normal text-text hover:text-white hover:bg-secondary transition-all duration-300 text-center">
               Book a Call
               <div className="transform transition-transform duration-300 group-hover:rotate-45">
-                <RightUp color={"#fff"} />
+                <FiArrowUpRight />
               </div>
             </button>
           </div>

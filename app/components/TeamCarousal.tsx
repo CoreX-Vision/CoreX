@@ -1,39 +1,24 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, use } from "react";
 import Image from "next/image";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
-import Lzr from "@/public/assets/testimonial/LzrLogo.png";
-import Zet from "@/public/assets/testimonial/ZeteticLogo.png";
-import iTech from "@/public/assets/testimonial/ItechLogo.png";
+import Founder from "@/public/assets/Founder.png";
 
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-const Testimonial = [
+const Team = [
   {
-    name: "Zetetic Clothing",
-    desc: "A huge thank you to Corex for building our stunning e-commerce website! Your expertise, creativity, and dedication truly brought our vision to life.",
-    image: Zet,
-    logo: Zet,
-  },
-  {
-    name: "Krishan",
-    desc: "I had an excellent experience working with Core X Vision - Sri Lanka to build my iTech Ceylon website. They delivered a highly professional, user-friendly e-commerce platform...",
-    image: iTech,
-    logo: iTech,
-  },
-  {
-    name: "LZR Shoes",
-    desc: "CoreX Vision - Sri Lanka did an amazing job building my footwear shopping system! The design is very clean and clear...",
-    image: Lzr,
-    logo: Lzr,
+    name: "Rimshad",
+    position: "CEO & Founder",
+    image: Founder,
   },
 ];
 
-const TestimonialCarousel = () => {
+const TeamCarousal = () => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
   const prevRef = useRef<HTMLButtonElement>(null);
@@ -51,7 +36,7 @@ const TestimonialCarousel = () => {
         breakpoints={{
           640: { slidesPerView: 1 },
           768: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
+          1024: { slidesPerView: 4 },
         }}
         navigation={{
           prevEl: prevRef.current,
@@ -71,41 +56,30 @@ const TestimonialCarousel = () => {
         }}
         className="w-full"
       >
-        {Testimonial.map((item, index) => (
-          <SwiperSlide key={index} className="w-full">
-            <div className="border border-text/10 flex flex-col justify-between items-start gap-6 p-6 bg-white w-full min-h-[350px]">
-              <p className="text-core-gray text-[14px] lg:text-[16px] font-light">
-                {item.desc}
-              </p>
-
-              <div className="relative w-16 h-16">
-                <Image
-                  src={item.image}
-                  alt={`CoreX Vision Client ${item.name}`}
-                  fill
-                  className="rounded-full object-cover"
-                />
-              </div>
-
-              <div className="flex justify-between items-center w-full">
-                <p className="font-normal text-text text-[14px] md:text-[18px]">
-                  {item.name}
-                </p>
-                <div className="relative w-20 h-8 lg:w-24 lg:h-10">
+        {Team.map((user, index) => (
+          <SwiperSlide key={index} className="w-full px-[20px] lg:px-0">
+            <div className="flex justify-between items-center w-full py-6">
+              <div className="flex flex-col w-full gap-4 justify-center items-center ">
+                <div className="rounded-xl overflow-hidden">
                   <Image
-                    src={item.logo}
-                    alt="Corex Testimonial user logo"
-                    fill
-                    className="object-cover"
+                    src={user.image}
+                    alt={`CoreX Vision Team ${user.name} && ${user.position}`}
+                    className="h-[450px] object-cover transform transition-transform duration-300 hover:scale-110"
                   />
                 </div>
+                <h3 className="text-[20px] text-secondary font-bold">
+                  {user.name}
+                </h3>
+                <p className="text-[16px] text-core-gray font-light">
+                  {user.position}
+                </p>
               </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
 
-      {Testimonial.length > 3 && (
+      {Team.length > 3 && (
         <div className="flex justify-end items-center w-full py-10">
           <button
             className={`p-3 border border-text/20 rounded-md mr-4 ${
@@ -131,4 +105,4 @@ const TestimonialCarousel = () => {
   );
 };
 
-export default TestimonialCarousel;
+export default TeamCarousal;

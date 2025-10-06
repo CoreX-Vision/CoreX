@@ -15,64 +15,57 @@ body {
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
-    font-family: 'SF-Pro', sans-serif;
+     font-family: "SF-Pro", sans-serif;
 }
 
 @font-face {
     font-family: 'SF-Pro';
-    src: url('../public/assets/fonts/sf-ui-display-light.ttf') format('ttf');
+    src: url('../public/assets/fonts/sf-ui-display-light.ttf') format('truetype');
     font-weight: 300;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'SF-Pro';
-    src: url('../public/assets/fonts/sf-ui-display-medium.ttf') format('ttf');
+    src: url('../public/assets/fonts/sf-ui-display-medium.ttf') format('truetype');
     font-weight: 500;
     font-style: medium;
 }
 @font-face {
     font-family: 'SF-Pro';
-    src: url('../public/assets/fonts/sf-ui-display-semibold.ttf') format('ttf');
+    src: url('../public/assets/fonts/sf-ui-display-semibold.ttf') format('truetype');
     font-weight: 600;
     font-style: semibold;
 }
 @font-face {
     font-family: 'SF-Pro';
-    src: url('../public/assets/fonts/sf-ui-display-bold.ttf') format('ttf');
+    src: url('../public/assets/fonts/sf-ui-display-bold.ttf') format('truetype');
     font-weight: 700;
     font-style: bold;
 }
 @font-face {
     font-family: 'SF-Pro';
-    src: url('../public/assets/fonts/sf-ui-display-heavy.ttf') format('ttf');
-    font-weight: 800;
-    font-style: heavy;
-}
-@font-face {
-    font-family: 'SF-Pro';
-    src: url('../public/assets/fonts/sf-ui-display-black.ttf') format('ttf');
+    src: url('../public/assets/fonts/sf-ui-display-black.ttf') format('truetype');
     font-weight: 900;
     font-style: black;
 }
 @font-face {
     font-family: 'SF-Pro';
-    src: url('../public/assets/fonts/sf-ui-display-thin.ttf') format('ttf');
+    src: url('../public/assets/fonts/sf-ui-display-thin.ttf') format('truetype');
     font-weight: 200;
     font-style: thin;
 }
 @font-face {
     font-family: 'SF-Pro';
-    src: url('../public/assets/fonts/sf-ui-display-ultralight.ttf') format('ttf');
+    src: url('../public/assets/fonts/sf-ui-display-ultralight.ttf') format('truetype');
     font-weight: 100;
-    font-style: ultralight;
+    font-style: light;
 }
 
 .corex {
     background: linear-gradient(180deg, #0d0d0d70, #fff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    max-height: 370px;
 }
 
 @keyframes scroll-dot {
@@ -93,4 +86,34 @@ body {
 
 .animate-scroll-glow {
   animation: scroll-glow 2.5s infinite ease-in-out;
+}
+
+@keyframes modal-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes modal-out {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.animate-modal-in {
+  animation: modal-in 0.3s ease-out forwards;
+}
+
+.animate-modal-out {
+  animation: modal-out 0.3s ease-out forwards;
 }
