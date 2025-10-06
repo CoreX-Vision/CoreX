@@ -1,15 +1,24 @@
-"use client";
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Portfolio from "@/data/portfolio.json";
-import { FiArrowRight } from "react-icons/fi";
+import { Projects } from "@/util/types";
+import { FiArrowUpRight } from "react-icons/fi";
+import moment from "moment";
 
-const PortfolioPage: React.FC = () => {
+export const revalidate = 10; // ISR (optional)
+
+const getProjects = async () => {
+  const res = await fetch("http://127.0.0.1:8000/api/projects");
+  if (!res.ok) throw new Error("Failed to fetch projects");
+  return res.json();
+};
+
+const PortfolioPage = async () => {
+  const projects: Projects[] = await getProjects();
+
   return (
     <div className="w-full h-full py-20 flex justify-center items-center flex-col">
       <div className="w-full lg:px-20 px-5 pb-[20px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {Portfolio.map((portfolio) => (
+        {projects.map((portfolio) => (
           <div
             key={portfolio.id}
             className="flex flex-col justify-between items-center gap-6 pt-6"
@@ -26,13 +35,22 @@ const PortfolioPage: React.FC = () => {
             <div className="flex flex-col min-h-[160px] gap-3 mt-3 justify-start items-center text-center">
               <h3 className="text-lg font-semibold">{portfolio.title}</h3>
               <p className="text-sm text-gray-500">
-                {portfolio.author} — {portfolio.date}
+                {portfolio.author} —{" "}
+                {moment(portfolio.created_at).format("MM-DD-YY")}
               </p>
               <p className="text-core-gray text-[14px] font-light">
                 {portfolio.content.split(" ").slice(0, 20).join(" ")}
                 {portfolio.content.split(" ").length > 20 && "..."}
               </p>
-              <Link href={`/portfolio/${portfolio.id}`} className="text-[14px] text-primary fontlight flex gap-2 justify-center items-center hover:text-secondary">Read More <FiArrowRight /></Link>
+              <Link
+                href={`/portfolio/${portfolio.id}`}
+                className="text-[14px] group text-primary fontlight flex gap-2 justify-center items-center hover:text-secondary"
+              >
+                Read More{" "}
+                <div className="transform transition-transform duration-300 group-hover:rotate-45">
+                  <FiArrowUpRight />
+                </div>
+              </Link>
             </div>
           </div>
         ))}
