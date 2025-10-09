@@ -1,10 +1,11 @@
-import Image from 'next/image';
-import React from 'react';
-import Img from '@/public/assets/about-page-hero-image.webp'
-import Founder from '@/public/assets/My Pic.png'
-import { FiArrowUpRight } from 'react-icons/fi';
-import about from '@/public/assets/about-page-section-3-column-image-1.webp'
-import TeamCarousal from '../components/TeamCarousal';
+"use client";
+import Image from "next/image";
+import React from "react";
+import Img from "@/public/assets/about-page-hero-image.webp";
+import Founder from "@/public/assets/My Pic.png";
+import { FiArrowUpRight } from "react-icons/fi";
+import about from "@/public/assets/about-page-section-3-column-image-1.webp";
+import TeamCarousal from "../components/TeamCarousal";
 
 const page = () => {
   return (
@@ -75,12 +76,15 @@ const page = () => {
             <p className="text-core-gray text-light">
               We focus on deliver on time projects
             </p>
-            <button className="group px-[20px] py-[15px] cursor-pointer bg-secondary rounded-md flex justify-center items-center mt-6 font-normal text-white hover:bg-primary transition-all duration-300 text-center">
+            <a
+              href="/contact"
+              className="group px-[20px] py-[15px] cursor-pointer bg-secondary rounded-md flex justify-center items-center mt-6 font-normal text-white hover:bg-primary transition-all duration-300 text-center"
+            >
               Start Now
               <div className="ml-2 transform transition-transform duration-300 group-hover:rotate-45 ">
                 <FiArrowUpRight />
               </div>
-            </button>
+            </a>
           </div>
         </div>
         <div className="w-full flex flex-col lg:flex-row justify-center items-center gap-4">
@@ -152,6 +156,6 @@ const page = () => {
       <TeamCarousal />
     </div>
   );
-}
+};
 
-export default page
+export default page;
