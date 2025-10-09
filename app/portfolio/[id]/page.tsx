@@ -1,29 +1,43 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 import moment from "moment";
 import { Projects } from "@/util/types";
+import { useParams } from "next/navigation";
 
-const PortfolioDetailPage = async ({ params }: { params: { id: string } }) => {
-  const { id } = params;
+const PortfolioDetailPage = () => {
+  const [project, setProject] = useState<Projects | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const params = useParams();
+  const id = params.id;
 
-  const res = await fetch(`http://127.0.0.1:8000/api/projects/${id}`, {
-    cache: "no-store",
-  });
+  useEffect(() => {
+    setLoading(true);
+    fetch(`http://localhost:8000/api/projects/${id}`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch project");
+        return res.json();
+      })
+      .then((data) => setProject(data))
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, [id]);
 
-  if (!res.ok) {
-    return <p className="text-center py-20">Project not found</p>;
-  }
-
-  const project: Projects = await res.json();
+  if (loading) return <p className="text-center py-20">Loading...</p>;
+  if (error) return <p className="text-center py-20">{error}</p>;
+  if (!project) return <p className="text-center py-20">Project not found</p>;
 
   return (
     <div className="w-full h-full py-20 flex justify-center items-center flex-col">
       <div
-        className="w-full flex justify-end items-start bg-cover bg-no-repeat bg-center min-h-[500px] relative flex-col px-20 py-10 rounded-2xl"
+        className="w-full flex justify-end items-start bg-cover bg-no-repeat bg-center min-h-[500px] relative flex-col px-20 py-10"
         style={{
           backgroundImage: `url(${project.image})`,
         }}
       >
-        <div className="absolute inset-0 bg-black opacity-40 rounded-2xl" />
+        <div className="absolute inset-0 bg-black opacity-40" />
         <h1 className="text-[50px] font-bold text-white z-10">
           {project.title}
         </h1>
@@ -40,9 +54,11 @@ const PortfolioDetailPage = async ({ params }: { params: { id: string } }) => {
         <div className="flex justify-center lg:justify-start items-center">
           <a
             href={
-              project.link.startsWith("http")
-                ? project.link
-                : `https://${project.link}`
+              project.link
+                ? project.link.startsWith("http")
+                  ? project.link
+                  : `https://${project.link}`
+                : "#"
             }
             target="_blank"
             className="group px-[20px] py-[15px] cursor-pointer hover:bg-secondary rounded-md flex justify-center items-center mt-6 font-normal hover:text-white bg-primary transition-all duration-300 text-center"

@@ -24,7 +24,7 @@ const Navbar = () => {
     { name: "About Us", href: "/about" },
     { name: "Service", href: "/services" },
     { name: "Portfolio", href: "/portfolio" },
-    { name: "Contact Us", href: "#contact" },
+    { name: "Contact Us", href: "/contact" },
   ];
 
   return (
@@ -53,7 +53,7 @@ const Navbar = () => {
                     className={`md:px-4 md:py-3 p-2 transition-all duration-500 rounded-sm text-[16px] ${
                       isActive
                         ? "bg-secondary text-white"
-                        : "text-text hover:bg-secondary hover:text-white"
+                        : "text-text hover:bg-primary hover:text-text"
                     }`}
                   >
                     {link.name}

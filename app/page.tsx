@@ -25,12 +25,15 @@ export default function Home() {
               Native to bring your ideas to life.
             </p>
             <div className="flex justify-center lg:justify-start items-center">
-              <button className="group px-[20px] py-[15px] cursor-pointer bg-secondary rounded-md flex justify-center items-center mt-6 font-normal text-white hover:bg-primary transition-all duration-300 text-center">
+              <a
+                href="/contact"
+                className="group px-[20px] py-[15px] cursor-pointer bg-secondary rounded-md flex justify-center items-center mt-6 font-normal text-white hover:bg-primary transition-all duration-300 text-center"
+              >
                 Get Start
                 <div className="ml-2 transform transition-transform duration-300 group-hover:rotate-45">
                   <FiArrowUpRight />
                 </div>
-              </button>
+              </a>
             </div>
           </div>
           <div className="lg:w-[30%] w-full relative overflow-hidden rounded-md">
@@ -64,18 +67,24 @@ export default function Home() {
               sociosqu bibendum rutrum placerat cras aliquam.
             </p>
             <div className="flex justify-start items-center gap-6 flex-col sm:flex-row">
-              <button className="group px-[20px] py-[15px] cursor-pointer bg-secondary rounded-md flex justify-center items-center mt-6 font-normal text-white hover:bg-primary transition-all duration-300 text-center">
+              <a
+                href="/contact"
+                className="group px-[20px] py-[15px] cursor-pointer bg-secondary rounded-md flex justify-center items-center mt-6 font-normal text-white hover:bg-primary transition-all duration-300 text-center"
+              >
                 Get Started Now
                 <div className="ml-2 transform transition-transform duration-300 group-hover:rotate-45 ">
                   <FiArrowUpRight />
                 </div>
-              </button>
-              <button className="group px-[20px] py-[15px] cursor-pointer rounded-md flex justify-center items-center mt-6 font-normal text-black hover:text-primary transition-all duration-300">
+              </a>
+              <a
+                href="/services"
+                className="group px-[20px] py-[15px] cursor-pointer rounded-md flex justify-center items-center mt-6 font-normal text-black hover:text-primary transition-all duration-300"
+              >
                 View Our Services
                 <div className="ml-2 transform transition-transform duration-300 group-hover:rotate-45">
                   <FiArrowUpRight />
                 </div>
-              </button>
+              </a>
             </div>
           </div>
           <div
@@ -158,12 +167,15 @@ export default function Home() {
             <h1 className="text-[32px] md:text-[50px] lg:text-[70px] text-text font-bold leading-[1.3em] lg:w-[67%] text-center lg:text-start">
               Successful Solutions That Drive Your Business Forward
             </h1>
-            <button className="group px-[20px] w-[150px] py-[15px] cursor-pointer bg-secondary rounded-md flex justify-center items-center mt-6 font-normal text-white hover:bg-primary transition-all duration-300 text-center">
+            <a
+              href="/services"
+              className="group px-[20px] w-[150px] py-[15px] cursor-pointer bg-secondary rounded-md flex justify-center items-center mt-6 font-normal text-white hover:bg-primary transition-all duration-300 text-center"
+            >
               View All
               <div className="ml-2 transform transition-transform duration-300 group-hover:rotate-45">
                 <FiArrowUpRight />
               </div>
-            </button>
+            </a>
           </div>
           <div className="w-full justify-between items-center flex flex-col lg:flex-row gap-6">
             <div>
@@ -212,7 +224,7 @@ export default function Home() {
           <div className="w-full justify-between items-center flex flex-col lg:flex-row gap-6">
             <div>
               <p className="text-text text-[45px] font-bold text-center lg:text-start">
-                100+
+                4+
               </p>
               <p className="text-core-gray text-[18px] font-normal text-center lg:text-start">
                 Projects Completed

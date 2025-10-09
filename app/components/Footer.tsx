@@ -12,22 +12,34 @@ const Footer = () => {
             <p className="font-medium">Company</p>
             <ul className="flex gap-6 flex-col lg:flex-row">
               <li>
-                <a href="/" className="text-core-gray text-[16px] font-light">
+                <a
+                  href="/"
+                  className="text-core-gray text-[16px] font-light hover:text-primary"
+                >
                   Home
                 </a>
               </li>
               <li>
-                <a href="#" className="text-core-gray text-[16px] font-light">
+                <a
+                  href="/about"
+                  className="text-core-gray text-[16px] font-light hover:text-primary"
+                >
                   About
                 </a>
               </li>
               <li>
-                <a href="#" className="text-core-gray text-[16px] font-light">
+                <a
+                  href="/services"
+                  className="text-core-gray text-[16px] font-light hover:text-primary"
+                >
                   Service
                 </a>
               </li>
               <li>
-                <a href="#" className="text-core-gray text-[16px] font-light">
+                <a
+                  href="/portfolio"
+                  className="text-core-gray text-[16px] font-light hover:text-primary"
+                >
                   Portfolio
                 </a>
               </li>
