@@ -6,10 +6,9 @@ import secondHero from "@/public/assets/home-section-2.webp";
 import secondHerosub from "@/public/assets/about-page-hero-image.webp";
 import TestimonialCarousel from "./components/Testimonial";
 import { FiArrowUpRight } from "react-icons/fi";
+import CountUp from "./components/CountUp";
 
 export default function Home() {
-
-
   return (
     <div className="w-full h-full flex justify-center items-center flex-col">
       <div className="w-full lg:px-20 pt-[100px] pb-[20px] lg:pt-40 lg:h-screen flex justify-center items-start">
@@ -180,7 +179,7 @@ export default function Home() {
           <div className="w-full justify-between items-center flex flex-col lg:flex-row gap-6">
             <div>
               <p className="text-text text-[45px] font-bold text-center lg:text-start">
-                98%
+                <CountUp to={98} suffix="%" />
               </p>
               <p className="text-core-gray text-[18px] font-normal text-center lg:text-start">
                 Client Satisfaction
@@ -202,7 +201,7 @@ export default function Home() {
           <div className="w-full justify-between items-center flex flex-col lg:flex-row gap-6">
             <div>
               <p className="text-text text-[45px] font-bold text-center lg:text-start">
-                $1,500
+                $<CountUp to={500} />
               </p>
               <p className="text-core-gray text-[18px] font-normal text-center lg:text-start">
                 Average Project Value
@@ -224,7 +223,7 @@ export default function Home() {
           <div className="w-full justify-between items-center flex flex-col lg:flex-row gap-6">
             <div>
               <p className="text-text text-[45px] font-bold text-center lg:text-start">
-                4+
+                +<CountUp to={4} />
               </p>
               <p className="text-core-gray text-[18px] font-normal text-center lg:text-start">
                 Projects Completed
