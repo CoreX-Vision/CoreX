@@ -13,18 +13,28 @@ import { Team } from "@/util/types";
 const TeamCarousal = () => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+  const [team, setTeam] = useState<Team[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
-  const [team, setTeam] = useState<Team[]>([]);
 
   useEffect(() => {
     fetch("http://localhost:8000/api/team")
       .then((res) => res.json())
       .then((data) => setTeam(data))
       .catch((err) => console.log(err));
+  }, []);
 
-    console.log(team);
-  }, [team]);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  },[]);
+
+  const minLength = isMobile ? 1 : 3
 
   return (
     <div className="w-full max-w-sm lg:max-w-screen relative overflow-hidden px-0 lg:px-20">
@@ -62,7 +72,7 @@ const TeamCarousal = () => {
           <SwiperSlide key={index} className="w-full px-[20px] lg:px-0">
             <div className="flex justify-between items-center w-full py-6">
               <div className="flex flex-col w-full gap-4 justify-center items-center">
-                <div className="rounded-xl overflow-hidden bg-[#D5D4D0] h-[380px] pb-2">
+                <div className="rounded-xl overflow-hidden bg-[#D5D4D0] h-[380px] lg:h-[550px] pb-2">
                   <Image
                     src={user.image}
                     width={400}
@@ -84,7 +94,7 @@ const TeamCarousal = () => {
         ))}
       </Swiper>
 
-      {team.length > 3 && (
+      {team.length > minLength && (
         <div className="flex justify-end items-center w-full py-10">
           <button
             className={`p-3 border border-text/20 rounded-md mr-4 ${

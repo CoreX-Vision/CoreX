@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,7 +9,6 @@ import Zet from "@/public/assets/testimonial/ZeteticLogo.png";
 import iTech from "@/public/assets/testimonial/ItechLogo.png";
 
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 const Testimonial = [
@@ -36,13 +35,24 @@ const Testimonial = [
 const TestimonialCarousel = () => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
-  const [loading, setLoading] = useState(true); // <-- Add loading state
+  const [loading, setLoading] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [mobile, setMobile] = useState(false);
+
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
 
-  // Simulate API loading
-  React.useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1500); // 1.5s delay
+  useEffect(() => {
+    const handleresize = () => setMobile(window.innerWidth < 768);
+    handleresize();
+    window.addEventListener("resize", handleresize);
+    return () => window.removeEventListener("resize", handleresize);
+  }, []);
+
+  const minLength = mobile ? 1 : 3;
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -65,96 +75,105 @@ const TestimonialCarousel = () => {
           ))}
         </div>
       ) : (
-        <Swiper
-          modules={[Navigation, Autoplay]}
-          slidesPerView={1}
-          loop={false}
-          spaceBetween={15}
-          autoplay={{ delay: 5000 }}
-          pagination={{ clickable: true }}
-          breakpoints={{
-            640: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
-          }}
-          navigation={{
-            prevEl: prevRef.current,
-            nextEl: nextRef.current,
-          }}
-          onBeforeInit={(swiper) => {
-            if (swiper.params.navigation) {
-              // @ts-ignore
-              swiper.params.navigation.prevEl = prevRef.current;
-              // @ts-ignore
-              swiper.params.navigation.nextEl = nextRef.current;
-            }
-          }}
-          onSlideChange={(swiper) => {
-            setIsBeginning(swiper.isBeginning);
-            setIsEnd(swiper.isEnd);
-          }}
-          className="w-full"
-        >
-          {Testimonial.map((item, index) => (
-            <SwiperSlide key={index} className="w-full">
-              <div className="border border-text/10 flex flex-col justify-between items-start gap-6 p-6 bg-white w-full min-h-[350px]">
-                <p className="text-core-gray text-[14px] lg:text-[16px] font-light">
-                  {item.desc}
-                </p>
-
-                <div className="relative w-16 h-16">
-                  <Image
-                    src={item.image}
-                    alt={`CoreX Vision Client ${item.name}`}
-                    fill
-                    className="rounded-full object-cover"
-                  />
-                </div>
-
-                <div className="flex justify-between items-center w-full">
-                  <p className="font-normal text-text text-[14px] md:text-[18px]">
-                    {item.name}
+        <>
+        <div className="w-full mb-4 h-[2px] bg-gray-200 overflow-hidden">
+            <div
+              className="h-full bg-black/90 transition-all duration-500"
+              style={{
+                width: `${((activeIndex + 1) / Testimonial.length) * 100}%`,
+              }}
+            ></div>
+          </div>
+          <Swiper
+            modules={[Navigation, Autoplay]}
+            slidesPerView={1}
+            loop={false}
+            spaceBetween={15}
+            autoplay={{ delay: 5000 }}
+            breakpoints={{
+              640: { slidesPerView: 1 },
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+            }}
+            navigation={{
+              prevEl: prevRef.current,
+              nextEl: nextRef.current,
+            }}
+            onBeforeInit={(swiper) => {
+              if (swiper.params.navigation) {
+                // @ts-ignore
+                swiper.params.navigation.prevEl = prevRef.current;
+                // @ts-ignore
+                swiper.params.navigation.nextEl = nextRef.current;
+              }
+            }}
+            onSlideChange={(swiper) => {
+              setIsBeginning(swiper.isBeginning);
+              setIsEnd(swiper.isEnd);
+              setActiveIndex(swiper.activeIndex);
+            }}
+            className="w-full"
+          >
+            {Testimonial.map((item, index) => (
+              <SwiperSlide key={index} className="w-full">
+                <div className="border border-text/10 flex flex-col justify-between items-start gap-6 p-6 bg-white w-full min-h-[350px]">
+                  <p className="text-core-gray text-[14px] lg:text-[16px] font-light">
+                    {item.desc}
                   </p>
-                  <div className="relative w-20 h-8 lg:w-24 lg:h-10">
+
+                  <div className="relative w-16 h-16">
                     <Image
-                      src={item.logo}
-                      alt="Corex Testimonial user logo"
+                      src={item.image}
+                      alt={`CoreX Vision Client ${item.name}`}
                       fill
-                      className="object-cover"
+                      className="rounded-full object-cover"
                     />
                   </div>
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      )}
 
-      {!loading && Testimonial.length > 3 && (
-        <div className="flex justify-end items-center w-full py-10">
-          <button
-            className={`p-3 border border-text/20 rounded-md mr-4 ${
-              isBeginning ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
-            }`}
-            ref={prevRef}
-            disabled={isBeginning}
-          >
-            <FaChevronLeft />
-          </button>
-          <button
-            className={`p-3 border border-text/20 rounded-md ${
-              isEnd ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
-            }`}
-            ref={nextRef}
-            disabled={isEnd}
-          >
-            <FaChevronRight />
-          </button>
-        </div>
+                  <div className="flex justify-between items-center w-full">
+                    <p className="font-normal text-text text-[14px] md:text-[18px]">
+                      {item.name}
+                    </p>
+                    <div className="relative w-20 h-8 lg:w-24 lg:h-10">
+                      <Image
+                        src={item.logo}
+                        alt="Corex Testimonial user logo"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          {Testimonial.length > minLength && (
+            <div className="flex justify-end items-center w-full py-10">
+              <button
+                className={`p-3 border border-text/20 rounded-md mr-4 ${
+                  isBeginning ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+                }`}
+                ref={prevRef}
+                disabled={isBeginning}
+              >
+                <FaChevronLeft />
+              </button>
+              <button
+                className={`p-3 border border-text/20 rounded-md ${
+                  isEnd ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+                }`}
+                ref={nextRef}
+                disabled={isEnd}
+              >
+                <FaChevronRight />
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
 };
-
 
 export default TestimonialCarousel;
