@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "title": "Web Development",
+    "desc": "Custom Web applications built with modern technologies and responsive design principles.",
+    "list": [
+      "React & Vue.js Development",
+      "Progressive Web Apps",
+      "E-Commerce solutions"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Mobile App Development",
+    "desc": "Native and cross-platform mobile apps that deliver exceptional user experience.",
+    "list": [
+      "iOS & Android Apps",
+      "React Native"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Cloud Solutions",
+    "desc": "Scalable cloud infrastructure and deployment strategies for modern applications.",
+    "list": ["AWS & Azure Services", "Devops & CI/CD", "Microservices Architecture"]
+  },
+  {
+    "id": 4,
+    "title": "UI/UX Design",
+    "desc": "Creating intuitive, engaging, and visually stunning interfaces that enhance user satisfaction and business growth.",
+    "list": [
+      "User Interface Design",
+      "User Experience Research",
+      "Prototyping & Wireframing"
+    ]
+  }
+]

@@ -11,7 +11,7 @@ const page = () => {
   return (
     <div className="w-full h-full flex justify-center items-center flex-col">
       <div className="w-full lg:px-20 pt-[100px] pb-[20px] lg:pt-24 flex justify-start items-start px-[20px]">
-        <h1 className="font-bold text-[32px] md:text-[50px] text-center lg:text-start lg:text-[70px] lg:w-[70%] leading-[1.3em]">
+        <h1 className="font-bold text-[32px] dark:text-white md:text-[50px] text-center lg:text-start lg:text-[70px] lg:w-[70%] leading-[1.3em]">
           We Are Here To Make Your WebSites
         </h1>
       </div>
@@ -32,10 +32,10 @@ const page = () => {
       </div>
       <div className="w-full lg:px-20 pt-10 py-20 lg:pt-20 flex flex-col lg:flex-row gap-6 justify-between items-start px-[20px]">
         <div className="flex justify-center items-center lg:items-start gap-4 flex-col">
-          <h1 className="font-normal text-[32px] md:text-[50px] text-center lg:text-start lg:text-[70px] lg:w-[70%] leading-[1.3em]">
+          <h1 className="font-normal dark:text-white text-[32px] md:text-[50px] text-center lg:text-start lg:text-[70px] lg:w-[70%] leading-[1.3em]">
             Our Vision
           </h1>
-          <p className="font-light text-core-gray text-[14px] lg:text-[20px] w-[80%]">
+          <p className="font-light text-core-gray dark:text-off-white/70 text-[14px] lg:text-[20px] w-[80%]">
             To be Sri Lanka’s most trusted technology partner, known for
             quality, reliability, and customer satisfaction.
           </p>
@@ -48,16 +48,16 @@ const page = () => {
               className="w-20 rounded-full object-contain"
             />
             <div>
-              <h3 className="text-[20px] font-normal text-secondary">
+              <h3 className="text-[20px] font-normal dark:text-white text-secondary">
                 Rimshad Ahamed
               </h3>
-              <p className="text-[16px] font-light text-core-gray">
+              <p className="text-[16px] font-light dark:text-off-white/70 text-core-gray">
                 Founder of CoreX
               </p>
             </div>
           </div>
           <div className="w-full flex justify-center items-center">
-            <p className="font-light text-core-gray text-[14px] lg:text-[20px]">
+            <p className="font-light text-core-gray text-[14px] lg:text-[20px] dark:text-off-white/70">
               Our mission is to deliver innovative and result-driven digital
               solutions that help businesses thrive in a competitive online
               world.
@@ -68,17 +68,17 @@ const page = () => {
       <div className="w-full flex-col gap-10 py-20 lg:px-20 flex justify-center items-center px-[20px]">
         <div className="w-full flex flex-col gap-0 lg:flex-row justify-center lg:justify-between items-center lg:items-end">
           <div className="flex justify-center items-start flex-col">
-            <h1 className="font-normal text-[32px] md:text-[50px] text-center lg:text-start lg:text-[70px] lg:w-[70%] leading-[1.3em]">
+            <h1 className="font-normal dark:text-white text-[32px] md:text-[50px] text-center lg:text-start lg:text-[70px] lg:w-[70%] leading-[1.3em]">
               Why Choose CoreX?
             </h1>
           </div>
-          <div className="flex flex-col justify-center items-center lg:items-start py-2 lg:py-10 px-6">
+          <div className="flex flex-col justify-center items-center dark:text-off-white/70 lg:items-start py-2 lg:py-10 px-6">
             <p className="text-core-gray text-light">
               We focus on deliver on time projects
             </p>
             <a
               href="/contact"
-              className="group px-[20px] py-[15px] cursor-pointer bg-secondary rounded-md flex justify-center items-center mt-6 font-normal text-white hover:bg-primary transition-all duration-300 text-center"
+              className="group px-[20px] py-[15px] cursor-pointer bg-secondary dark:bg-white dark:text-black rounded-md flex justify-center items-center mt-6 font-normal text-white hover:bg-primary transition-all duration-300 text-center"
             >
               Start Now
               <div className="ml-2 transform transition-transform duration-300 group-hover:rotate-45 ">
@@ -144,10 +144,10 @@ const page = () => {
       </div>
       <div className="w-full flex-col gap-10 lg:px-20 py-20 flex justify-center items-center px-[20px]">
         <div className="w-full flex flex-col gap-2 lg:gap-20 lg:flex-row justify-between items-center ">
-          <h1 className="font-normal text-[32px] md:text-[50px] text-center lg:text-start lg:text-[70px] lg:w-[60%] 2xl:w-[40%] leading-[1.3em]">
+          <h1 className="font-normal dark:text-white text-[32px] md:text-[50px] text-center lg:text-start lg:text-[70px] lg:w-[60%] 2xl:w-[40%] leading-[1.3em]">
             A Team Of Experts You Can Trust
           </h1>
-          <p className="text-core-gray text-light 2xl:w-[20%]">
+          <p className="text-core-gray text-light 2xl:w-[20%] dark:text-off-white/70">
             Behind every successful project at CoreX is our team of highly
             skilled and dedicated professionals.
           </p>

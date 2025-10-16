@@ -72,7 +72,7 @@ const TeamCarousal = () => {
           <SwiperSlide key={index} className="w-full px-[20px] lg:px-0">
             <div className="flex justify-between items-center w-full py-6">
               <div className="flex flex-col w-full gap-4 justify-center items-center">
-                <div className="rounded-xl overflow-hidden bg-[#D5D4D0] h-[380px] lg:h-[550px] pb-2">
+                <div className="rounded-xl overflow-hidden bg-[#D5D4D0] h-[380px] pb-2">
                   <Image
                     src={user.image}
                     width={400}
