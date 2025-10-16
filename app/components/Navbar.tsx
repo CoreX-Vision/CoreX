@@ -9,15 +9,27 @@ import { FiArrowUpRight } from "react-icons/fi";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY < 40 || currentScrollY < lastScrollY) {
+        setShowNavbar(true);
+      } else {
+        setShowNavbar(false);
+      }
+
+      setIsScrolled(currentScrollY > 40);
+      setLastScrollY(currentScrollY);
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -30,16 +42,18 @@ const Navbar = () => {
   return (
     <div className="w-full flex justify-center items-center relative">
       <div
-        className={`w-full fixed top-0 z-50 transition-colors duration-500 lg:px-20 ${
-          isScrolled ? "bg-white shadow-sm" : "bg-background"
-        }`}
+        className={`w-full fixed top-0 z-50 transition-transform duration-300 lg:px-20 ${
+          isScrolled ? "bg-white" : "bg-background"
+        } ${showNavbar ? "translate-y-0 shadow-sm" : "-translate-y-full"}`} // <-- hide/show
       >
         <div className="mx-auto py-3 flex justify-between items-center px-[20px] lg:px-0">
           {/* Logo */}
           <Image
             src={Logo}
             alt="CoreX Vision Company logo"
-            className="w-16 lg:w-32 h-auto object-cover"
+            className={`w-16 lg:w-32 h-auto object-cover ${
+              isScrolled ? "dark:invert-0" : "dark:brightness-0 dark:invert"
+            }`}
           />
 
           {/* Desktop Menu */}
@@ -50,23 +64,26 @@ const Navbar = () => {
                 <li key={index} className="relative group">
                   <a
                     href={link.href}
-                    className={`md:px-4 md:py-3 p-2 transition-all duration-500 rounded-sm text-[16px] ${
+                    className={`md:px-4 md:py-3  flex items-center gap-2 p-2 transition-all duration-500 rounded-sm text-[16px]
+                    ${
                       isActive
-                        ? "bg-secondary text-white"
-                        : "text-text hover:bg-primary hover:text-text"
+                        ? isScrolled
+                          ? "bg-secondary text-white dark:bg-black dark:text-white"
+                          : "bg-secondary text-white dark:text-black/80 dark:bg-white"
+                        : isScrolled
+                        ? "text-text hover:bg-primary hover:text-text dark:text-black"
+                        : "text-text hover:bg-primary hover:text-text dark:text-white"
                     }`}
                   >
                     {link.name}
                   </a>
-                  {/* hover animation underline / bg grow */}
-                  {/* <span className="absolute left-0 bottom-0 w-0 h-full bg-white transition-all duration-300 group-hover:w-full -z-10"></span> */}
                 </li>
               );
             })}
           </ul>
 
           <div className="flex">
-            <button className="group gap-1 px-5 py-3 cursor-pointer bg-primary rounded-md flex justify-center items-center font-normal text-text hover:text-white hover:bg-secondary transition-all duration-300 text-center">
+            <button className="group gap-1 px-5 py-3 cursor-pointer dark:hover:bg-white dark:hover:text-text bg-primary rounded-md flex justify-center items-center font-normal text-text hover:text-white hover:bg-secondary transition-all duration-300 text-center">
               Book a Call
               <div className="transform transition-transform duration-300 group-hover:rotate-45">
                 <FiArrowUpRight />
@@ -76,29 +93,25 @@ const Navbar = () => {
 
           {/* Mobile Menu Toggle */}
           <button
-            className="lg:hidden text-text"
+            className="lg:hidden text-text dark:text-white"
             onClick={() => setIsOpen(!isOpen)}
           >
             <Menu size={28} />
           </button>
         </div>
-
-        {/* Overlay */}
         {isOpen && (
           <div
             className="fixed inset-0 bg-black/10 bg-opacity-50 z-30"
-            onClick={() => setIsOpen(false)} // close when clicking outside
+            onClick={() => setIsOpen(false)}
           ></div>
         )}
-
-        {/* Mobile Menu */}
         <div
-          className={`lg:hidden fixed top-0 right-0 h-screen w-2/5 z-40 transform bg-white transition-transform duration-500 
+          className={`lg:hidden fixed top-0 right-0 h-screen w-2/5 z-40 transform bg-white dark:bg-black transition-transform duration-500 
     ${isOpen ? "translate-x-0" : "translate-x-full"}`}
         >
           <div className="flex flex-col items-start space-y-6 mt-20 px-6">
             <button
-              className="lg:hidden text-secondary absolute top-6 right-6"
+              className="lg:hidden text-secondary dark:text-white absolute top-6 right-6"
               onClick={() => setIsOpen(false)}
             >
               <X size={28} />
@@ -112,8 +125,8 @@ const Navbar = () => {
                   href={link.href}
                   className={`px-4 py-2 rounded-md transition-all duration-300 text-center ${
                     isActive
-                      ? "bg-secondary text-white"
-                      : "bg-white text-secondary"
+                      ? "bg-secondary text-white dark:text-black dark:bg-white"
+                      : "bg-transparent text-secondary dark:text-white"
                   }`}
                 >
                   {link.name}

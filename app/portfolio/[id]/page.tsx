@@ -47,7 +47,7 @@ const PortfolioDetailPage = () => {
       </div>
 
       <div className="flex flex-col px-20 py-10 w-full justify-center items-start gap-10">
-        <p className="text-core-gray text-[17px] font-light">
+        <p className="text-core-gray text-[17px] font-light dark:text-off-white/70">
           {project.content}
         </p>
 
@@ -61,7 +61,7 @@ const PortfolioDetailPage = () => {
                 : "#"
             }
             target="_blank"
-            className="group px-[20px] py-[15px] cursor-pointer hover:bg-secondary rounded-md flex justify-center items-center mt-6 font-normal hover:text-white bg-primary transition-all duration-300 text-center"
+            className="group px-[20px] py-[15px] dark:hover:bg-white dark:hover:text-text cursor-pointer hover:bg-secondary rounded-md flex justify-center items-center mt-6 font-normal hover:text-white bg-primary transition-all duration-300 text-center"
           >
             Get Started
             <div className="ml-2 transform transition-transform duration-300 group-hover:rotate-45">

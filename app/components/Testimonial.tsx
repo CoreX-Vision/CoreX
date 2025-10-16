@@ -76,9 +76,9 @@ const TestimonialCarousel = () => {
         </div>
       ) : (
         <>
-        <div className="w-full mb-4 h-[2px] bg-gray-200 overflow-hidden">
+          <div className="w-full mb-4 h-[2px] dark:bg-off-white/70 bg-gray-200 overflow-hidden">
             <div
-              className="h-full bg-black/90 transition-all duration-500"
+              className="h-full bg-black/90 dark:bg-white/90 transition-all duration-500"
               style={{
                 width: `${((activeIndex + 1) / Testimonial.length) * 100}%`,
               }}
@@ -116,8 +116,8 @@ const TestimonialCarousel = () => {
           >
             {Testimonial.map((item, index) => (
               <SwiperSlide key={index} className="w-full">
-                <div className="border border-text/10 flex flex-col justify-between items-start gap-6 p-6 bg-white w-full min-h-[350px]">
-                  <p className="text-core-gray text-[14px] lg:text-[16px] font-light">
+                <div className="border border-text/10 flex flex-col justify-between items-start gap-6 p-6 dark:bg-[#212121] bg-white w-full min-h-[350px]">
+                  <p className="text-core-gray text-[14px] lg:text-[16px] dark:text-off-white/70 font-light">
                     {item.desc}
                   </p>
 
@@ -131,7 +131,7 @@ const TestimonialCarousel = () => {
                   </div>
 
                   <div className="flex justify-between items-center w-full">
-                    <p className="font-normal text-text text-[14px] md:text-[18px]">
+                    <p className="font-normal text-text text-[14px] dark:text-off-white/60 md:text-[18px]">
                       {item.name}
                     </p>
                     <div className="relative w-20 h-8 lg:w-24 lg:h-10">
@@ -152,7 +152,9 @@ const TestimonialCarousel = () => {
             <div className="flex justify-end items-center w-full py-10">
               <button
                 className={`p-3 border border-text/20 rounded-md mr-4 ${
-                  isBeginning ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+                  isBeginning
+                    ? "opacity-50 cursor-not-allowed"
+                    : "cursor-pointer"
                 }`}
                 ref={prevRef}
                 disabled={isBeginning}

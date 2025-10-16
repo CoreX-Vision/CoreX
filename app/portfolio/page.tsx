@@ -56,17 +56,17 @@ const PortfolioPage = () => {
                 </div>
                 <div className="flex flex-col min-h-[160px] gap-3 mt-3 justify-start items-center text-center">
                   <h3 className="text-lg font-semibold">{portfolio.title}</h3>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-gray-500 dark:text-white">
                     {portfolio.author} —{" "}
                     {moment(portfolio.created_at).format("MM-DD-YY")}
                   </p>
-                  <p className="text-core-gray text-[14px] font-light">
+                  <p className="text-core-gray text-[14px] font-light dark:text-off-white/70">
                     {portfolio.content.split(" ").slice(0, 20).join(" ")}
                     {portfolio.content.split(" ").length > 20 && "..."}
                   </p>
                   <Link
                     href={`/portfolio/${portfolio.id}`}
-                    className="text-[14px] group text-primary fontlight flex gap-2 justify-center items-center hover:text-secondary"
+                    className="text-[14px] group text-primary fontlight flex gap-2 justify-center items-center hover:text-secondary dark:hover:text-off-white"
                   >
                     Read More{" "}
                     <div className="transform transition-transform duration-300 group-hover:rotate-45">
