@@ -2,16 +2,13 @@
 import React from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 import Lottie from "lottie-react";
-import Team from "@/public/assets/lottie/Team.json"
-import Company from "@/public/assets/lottie/Company employees sharing thoughts and ideas.json"
-import Business from "@/public/assets/lottie/Business woman.json"
-import Interview from "@/public/assets/lottie/Interview..json";
+import LazyLottie from "../components/Lottie";
 
 const page = () => {
   return (
     <div className="w-full h-full flex justify-center items-center flex-col">
-      <div className="flex flex-col lg:flex-row justify-between items-start pt-20 lg:pt-40 pb-20 lg:px-20 gap-20">
-        <div className="w-[50%] flex flex-col justify-start items-start gap-4">
+      <div className="flex flex-col lg:flex-row justify-between items-start pt-20 px-6 lg:pt-40 pb-20 lg:px-20 gap-20">
+        <div className="w-full lg:w-[50%] flex flex-col justify-start items-start gap-4">
           <h1 className="font-bold text-[32px] md:text-[50px] dark:text-white text-center lg:text-start leading-[1.3em]">
             Website Development
           </h1>
@@ -47,25 +44,15 @@ const page = () => {
             </button>
           </div> */}
         </div>
-        <div className="flex w-[50%] justify-center items-center">
-          <Lottie
-            animationData={Team}
-            autoPlay
-            loop
-            className="w-full object-cover"
-          />
+        <div className="flex w-full lg:w-[50%] justify-center items-center">
+          <LazyLottie path="Team.json" />
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row justify-between items-start py-20 lg:px-20 gap-20">
-        <div className="flex w-[50%] justify-center items-center">
-          <Lottie
-            animationData={Business}
-            autoPlay
-            loop
-            className="w-full object-cover"
-          />
+      <div className="flex flex-col lg:flex-row justify-between items-start py-20 px-6 lg:px-20 gap-20">
+        <div className="flex w-full lg:w-[50%] justify-center items-center">
+          <LazyLottie path="Business woman.json" />
         </div>
-        <div className="flex w-[50%] flex-col justify-start items-start gap-4">
+        <div className="flex w-full lg:w-[50%] flex-col justify-start items-start gap-4">
           <h1 className="font-bold text-[32px] md:text-[50px] text-center lg:text-start leading-[1.3em] dark:text-white">
             Mobile App Development
           </h1>
@@ -102,8 +89,8 @@ const page = () => {
           </div> */}
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row justify-between items-start py-20 lg:px-20 gap-20">
-        <div className="flex w-[50%] flex-col justify-start items-start gap-4">
+      <div className="flex flex-col lg:flex-row justify-between items-start py-20 px-6 lg:px-20 gap-20">
+        <div className="flex w-full lg:w-[50%] flex-col justify-start items-start gap-4">
           <h1 className="font-bold text-[32px] md:text-[50px] text-center lg:text-start leading-[1.3em] dark:text-white">
             E-Commerce Solutions
           </h1>
@@ -138,25 +125,15 @@ const page = () => {
             </button>
           </div> */}
         </div>
-        <div className="flex w-[50%] justify-center items-center">
-          <Lottie
-            animationData={Interview}
-            autoPlay
-            loop
-            className="w-full object-cover"
-          />
+        <div className="flex w-full lg:w-[50%] justify-center items-center">
+          <LazyLottie path="Interview..json" />
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row justify-between items-start py-20 lg:px-20 gap-20">
-        <div className="flex w-[50%] justify-center items-center">
-          <Lottie
-            animationData={Company}
-            autoPlay
-            loop
-            className="w-full object-cover"
-          />
+      <div className="flex flex-col lg:flex-row justify-between items-start py-20 px-6 lg:px-20 gap-20">
+        <div className="flex w-full lg:w-[50%] justify-center items-center">
+          <LazyLottie path="Company employees sharing thoughts and ideas.json" />
         </div>
-        <div className="flex w-[50%] flex-col justify-start items-start gap-4">
+        <div className="flex w-full lg:w-[50%] flex-col justify-start items-start gap-4">
           <h1
             className="font-bold text-[32px] md:text-[50px] text-center lg:text-start leading-[1.3em] dark:text-white
           "
@@ -197,8 +174,8 @@ const page = () => {
           </div> */}
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row justify-between items-start py-20 lg:px-20 gap-20">
-        <div className="flex w-[50%] flex-col justify-start items-start gap-4">
+      <div className="flex flex-col lg:flex-row justify-between items-start py-20 px-6 lg:px-20 gap-20">
+        <div className="flex w-full lg:w-[50%] flex-col justify-start items-start gap-4">
           <h1 className="font-bold text-[32px] md:text-[50px] text-center lg:text-start leading-[1.3em] dark:text-white">
             Maintenance & Support
           </h1>
@@ -238,13 +215,8 @@ const page = () => {
             </button>
           </div> */}
         </div>
-        <div className="flex w-[50%] justify-center items-center">
-          <Lottie
-            animationData={Team}
-            autoPlay
-            loop
-            className="w-full object-cover"
-          />
+        <div className="flex w-full lg:w-[50%] justify-center items-center">
+          <LazyLottie path="Team.json" />
         </div>
       </div>
     </div>

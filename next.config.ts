@@ -1,9 +1,5 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  images: {
-    domains: ["127.0.0.1", "localhost", "yourdomain.com"],
-  },
-};
+const nextConfig: NextConfig = {};
 
-module.exports = nextConfig;
+export default nextConfig;

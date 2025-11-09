@@ -39,8 +39,8 @@ const TestimonialCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [mobile, setMobile] = useState(false);
 
-  const prevRef = useRef<HTMLButtonElement>(null);
-  const nextRef = useRef<HTMLButtonElement>(null);
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
 
   useEffect(() => {
     const handleresize = () => setMobile(window.innerWidth < 768);
@@ -63,13 +63,13 @@ const TestimonialCarousel = () => {
           {[1, 2, 3].map((_, i) => (
             <div
               key={i}
-              className="border border-text/10 flex flex-col justify-between items-start gap-6 p-6 bg-white w-full min-h-[350px] animate-pulse"
+              className="border border-text/10 flex flex-col dark:bg-[#212121] justify-between items-start gap-6 p-6 bg-white w-full min-h-[350px]"
             >
-              <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-              <div className="relative w-16 h-16 bg-gray-200 rounded-full"></div>
+              <div className="h-4 bg-gray-200 rounded w-3/4 skeleton"></div>
+              <div className="relative w-16 h-16 bg-gray-200 rounded-full skeleton"></div>
               <div className="flex justify-between items-center w-full">
-                <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-                <div className="w-20 h-8 bg-gray-200 rounded"></div>
+                <div className="h-4 bg-gray-200 rounded w-1/4 skeleton"></div>
+                <div className="w-20 h-8 bg-gray-200 rounded skeleton"></div>
               </div>
             </div>
           ))}
@@ -126,6 +126,9 @@ const TestimonialCarousel = () => {
                       src={item.image}
                       alt={`CoreX Vision Client ${item.name}`}
                       fill
+                      placeholder="blur"
+                      loading="lazy"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 50vw"
                       className="rounded-full object-cover"
                     />
                   </div>
@@ -139,6 +142,9 @@ const TestimonialCarousel = () => {
                         src={item.logo}
                         alt="Corex Testimonial user logo"
                         fill
+                        placeholder="blur"
+                        loading="lazy"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 50vw"
                         className="object-cover"
                       />
                     </div>
@@ -151,7 +157,7 @@ const TestimonialCarousel = () => {
           {Testimonial.length > minLength && (
             <div className="flex justify-end items-center w-full py-10">
               <button
-                className={`p-3 border border-text/20 rounded-md mr-4 ${
+                className={`p-3 border border-text/20 dark:border-off-white/20 dark:text-white rounded-md mr-4 ${
                   isBeginning
                     ? "opacity-50 cursor-not-allowed"
                     : "cursor-pointer"
@@ -162,7 +168,7 @@ const TestimonialCarousel = () => {
                 <FaChevronLeft />
               </button>
               <button
-                className={`p-3 border border-text/20 rounded-md ${
+                className={`p-3 border border-text/20 dark:border-off-white/20 dark:text-white rounded-md ${
                   isEnd ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
                 }`}
                 ref={nextRef}

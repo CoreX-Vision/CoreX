@@ -3,30 +3,29 @@
 import { useEffect, useState } from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 import moment from "moment";
-import { Projects } from "@/util/types";
 import { useParams } from "next/navigation";
+import IMG from "@/public/assets/about-page-section-3-column-image-1.webp";
+import Projects from "@/data/portfolio.json";
+
 
 const PortfolioDetailPage = () => {
-  const [project, setProject] = useState<Projects | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
   const params = useParams();
-  const id = params.id;
+  const {id} = params;
 
-  useEffect(() => {
-    setLoading(true);
-    fetch(`http://localhost:8000/api/projects/${id}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch project");
-        return res.json();
-      })
-      .then((data) => setProject(data))
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
-  }, [id]);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   fetch(`http://localhost:8000/api/projects/${id}`)
+  //     .then((res) => {
+  //       if (!res.ok) throw new Error("Failed to fetch project");
+  //       return res.json();
+  //     })
+  //     .then((data) => setProject(data))
+  //     .catch((err) => setError(err.message))
+  //     .finally(() => setLoading(false));
+  // }, [id]);
 
-  if (loading) return <p className="text-center py-20">Loading...</p>;
-  if (error) return <p className="text-center py-20">{error}</p>;
+  const project = Projects.find((p) => p.id.toString() === id);
+
   if (!project) return <p className="text-center py-20">Project not found</p>;
 
   return (
@@ -37,12 +36,12 @@ const PortfolioDetailPage = () => {
           backgroundImage: `url(${project.image})`,
         }}
       >
-        <div className="absolute inset-0 bg-black opacity-40" />
+        <div className="absolute inset-0 bg-black opacity-60" />
         <h1 className="text-[50px] font-bold text-white z-10">
           {project.title}
         </h1>
         <p className="z-10 text-white text-[24px] font-light">
-          {project.author} — {moment(project.created_at).format("DD-MM-YY")}
+          {project.author} — {moment(project.date).format("DD-MM-YY")}
         </p>
       </div>
 

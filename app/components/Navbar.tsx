@@ -3,8 +3,9 @@ import React, { useState, useEffect } from "react";
 import Logo from "@/public/assets/Logo2.png";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FiArrowUpRight } from "react-icons/fi";
+import Link from "next/link";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +13,7 @@ const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,9 +53,10 @@ const Navbar = () => {
           <Image
             src={Logo}
             alt="CoreX Vision Company logo"
-            className={`w-16 lg:w-32 h-auto object-cover ${
+            className={`w-16 lg:w-32 h-auto object-cover cursor-pointer ${
               isScrolled ? "dark:invert-0" : "dark:brightness-0 dark:invert"
             }`}
+            onClick={() => router.push("/")}
           />
 
           {/* Desktop Menu */}
@@ -83,17 +86,22 @@ const Navbar = () => {
           </ul>
 
           <div className="flex">
-            <button className="group gap-1 px-5 py-3 cursor-pointer dark:hover:bg-white dark:hover:text-text bg-primary rounded-md flex justify-center items-center font-normal text-text hover:text-white hover:bg-secondary transition-all duration-300 text-center">
+            <Link
+              href="/contact"
+              className="group gap-1 px-5 py-3 cursor-pointer dark:hover:bg-white dark:hover:text-text bg-primary rounded-md flex justify-center items-center font-normal text-text hover:text-white hover:bg-secondary transition-all duration-300 text-center"
+            >
               Book a Call
               <div className="transform transition-transform duration-300 group-hover:rotate-45">
                 <FiArrowUpRight />
               </div>
-            </button>
+            </Link>
           </div>
 
           {/* Mobile Menu Toggle */}
           <button
-            className="lg:hidden text-text dark:text-white"
+            className={`lg:hidden text-text ${
+              isScrolled ? "dark:text-black" : "dark:text-white"
+            }`}
             onClick={() => setIsOpen(!isOpen)}
           >
             <Menu size={28} />
@@ -106,7 +114,7 @@ const Navbar = () => {
           ></div>
         )}
         <div
-          className={`lg:hidden fixed top-0 right-0 h-screen w-2/5 z-40 transform bg-white dark:bg-black transition-transform duration-500 
+          className={`lg:hidden fixed top-0 right-0 h-screen w-[200px] z-40 transform bg-white dark:bg-black transition-transform duration-500 
     ${isOpen ? "translate-x-0" : "translate-x-full"}`}
         >
           <div className="flex flex-col items-start space-y-6 mt-20 px-6">

@@ -4,28 +4,27 @@ import Image from "next/image";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
+import Teams from "@/data/team.json";
 
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Team } from "@/util/types";
 
 const TeamCarousal = () => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
-  const [team, setTeam] = useState<Team[]>([]);
   const [isMobile, setIsMobile] = useState(false);
 
 
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
-    fetch("http://localhost:8000/api/team")
-      .then((res) => res.json())
-      .then((data) => setTeam(data))
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://localhost:8000/api/team")
+  //     .then((res) => res.json())
+  //     .then((data) => setTeam(data))
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -68,7 +67,7 @@ const TeamCarousal = () => {
         }}
         className="w-full"
       >
-        {team.map((user, index) => (
+        {Teams.map((user, index) => (
           <SwiperSlide key={index} className="w-full px-[20px] lg:px-0">
             <div className="flex justify-between items-center w-full py-6">
               <div className="flex flex-col w-full gap-4 justify-center items-center">
@@ -79,13 +78,14 @@ const TeamCarousal = () => {
                     height={400}
                     objectFit="cover"
                     alt={`CoreX Vision Team ${user.name} && ${user.position}`}
+                    loading="lazy"
                     className="w-full transform transition-transform duration-300 hover:scale-110"
                   />
                 </div>
-                <h3 className="text-[20px] text-secondary font-bold">
+                <h3 className="text-[20px] text-secondary font-bold dark:text-white">
                   {user.name}
                 </h3>
-                <p className="text-[16px] text-core-gray font-light">
+                <p className="text-[16px] text-core-gray dark:text-off-white/70 font-light">
                   {user.position}
                 </p>
               </div>
@@ -94,10 +94,10 @@ const TeamCarousal = () => {
         ))}
       </Swiper>
 
-      {team.length > minLength && (
+      {Teams.length > minLength && (
         <div className="flex justify-end items-center w-full py-10">
           <button
-            className={`p-3 border border-text/20 rounded-md mr-4 ${
+            className={`p-3 border border-text/20 dark:border-off-white/20 dark:text-white rounded-md mr-4 ${
               isBeginning ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
             }`}
             ref={prevRef}
@@ -106,7 +106,7 @@ const TeamCarousal = () => {
             <FaChevronLeft />
           </button>
           <button
-            className={`p-3 border border-text/20 rounded-md ${
+            className={`p-3 border border-text/20 dark:border-off-white/20 dark:text-white rounded-md ${
               isEnd ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
             }`}
             ref={nextRef}

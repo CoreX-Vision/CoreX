@@ -2,16 +2,25 @@
 import React, { useState } from "react";
 import {
   FiArrowUpRight,
+  FiChevronUp,
   FiFacebook,
   FiInstagram,
   FiLinkedin,
   FiMapPin,
   FiPhoneCall,
 } from "react-icons/fi";
-import CountryDropdown from "../components/CountryDropdown";
+import ContactForm from "../components/ContactForm";
+
+// Add this at the top of your file if not already
+const countries = [{ code: "US" }, { code: "UK" }, { code: "LK" }];
 
 const ContactPage = () => {
+  const [loading, setLoading] = useState(false);
+  const [toast, setToast] = useState<{ type: string; message: string } | null>(
+    null
+  );
   const [country, setCountry] = useState("LK");
+  const [open, setOpen] = useState(false);
   const [phonePlaceholder, setPhonePlaceholder] = useState("+94 71 234 5678");
   const [formData, setFormData] = useState({
     firstName: "",
@@ -22,7 +31,11 @@ const ContactPage = () => {
     services: [] as string[],
   });
 
-  // ✅ Update text inputs
+  const showToast = (message: string, type: "success" | "error") => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3000); // disappear after 3 seconds
+  };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -30,7 +43,6 @@ const ContactPage = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // ✅ Update checkbox values
   const handleServiceChange = (service: string) => {
     setFormData((prev) => {
       const selected = prev.services.includes(service)
@@ -42,7 +54,8 @@ const ContactPage = () => {
 
   const handleCountryChange = (e: any) => {
     const selected = e.target.value;
-    setCountry(selected);
+    setCountry(countries.find((c) => c.code === selected)?.code || "LK");
+    setOpen(false);
 
     switch (selected) {
       case "US":
@@ -69,21 +82,23 @@ const ContactPage = () => {
       !formData.phone ||
       !formData.message
     ) {
-      alert("Please fill in all required fields.");
+      showToast("Please fill in all required fields.", "error");
       return;
     }
 
     try {
-      const res = await fetch("http://localhost:8000/api/contact", {
+      setLoading(true);
+      const res = await fetch("/api/sendContactEmail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...formData, country }),
       });
 
       const data = await res.json();
+      setLoading(false);
 
       if (data.success) {
-        alert("Message sent successfully!");
+        showToast("Message sent successfully!", "success");
         setFormData({
           firstName: "",
           lastName: "",
@@ -93,16 +108,33 @@ const ContactPage = () => {
           services: [],
         });
       } else {
-        alert("Failed to send message: " + data.message);
+        showToast("Failed to send message: " + data.message, "error");
       }
     } catch (err) {
+      setLoading(false);
       console.error(err);
-      alert("Something went wrong. Please try again later.");
+      showToast("Something went wrong. Please try again later.", "error");
     }
   };
 
   return (
     <div className="w-full min-h-screen justify-center items-center">
+      {loading && (
+        <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
+          <div className="loader border-t-4 border-b-4 border-white rounded-full w-12 h-12 animate-spin"></div>
+        </div>
+      )}
+
+      {toast && (
+        <div
+          className={`fixed top-5 right-5 z-50 px-4 py-3 rounded-lg shadow-lg text-white ${
+            toast.type === "success" ? "bg-green-500" : "bg-red-500"
+          }`}
+        >
+          {toast.message}
+        </div>
+      )}
+
       <div className="flex w-full flex-wrap-reverse lg:flex-nowrap justify-between py-20 items-start px-6 gap-6 lg:px-20 lg:gap-20">
         {/* left container */}
         <div className="lg:w-1/4 sticky top-0 flex flex-col  pt-30 py-[20px] justify-center items-start gap-10">
@@ -115,7 +147,7 @@ const ContactPage = () => {
             </p>
             <a
               className="text-[14px] font-normal text-text  dark:text-off-white/70 flex items-center gap-2"
-              href="https://www.facebook.com/profile.php?id=61579803335718"
+              href="https://www.facebook.com/profile.php?id=61582481331680"
               target="_blank"
             >
               <FiFacebook />
@@ -172,134 +204,16 @@ const ContactPage = () => {
           </div>
         </div>
         {/* right container */}
-        <div className="lg:w-3/4 px-6 lg:px-0 flex flex-col justify-center pt-30 items-center gap-4">
+        <div className="lg:w-3/4 px-6 lg:px-0 flex flex-col justify-center pt-4 lg:pt-30 items-center gap-4">
           <h1 className="text-4xl md:text-5xl font-bold text-center text-black dark:text-white mb-4">
             Contact Our Team
           </h1>
-          <p className="text-gray-500 font-light text-center max-w-[600px] mb-10 dark:text-off-white/70">
+          <p className="text-gray-500 text-sm font-light text-center max-w-[600px] mb-10 dark:text-off-white/70">
             We build modern and scalable digital solutions that help businesses
             grow. From websites to mobile apps, our focus is on delivering
             performance, design, and reliability with every project.
           </p>
-
-          <form className="w-full flex flex-col gap-6" onSubmit={handleSubmit}>
-            {/* First and Last Name */}
-            <div className="flex flex-col md:flex-row gap-6">
-              <div className="flex flex-col w-full gap-2">
-                <label className="text-sm text-black dark:text-off-white/70 mb-1">
-                  First name
-                </label>
-                <input
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  placeholder="First name"
-                  className="border border-gray-300 dark:border-white/10 dark:focus:ring-primary/65 dark:text-off-white/70 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 outline-0 focus:border-primary/0/40 focus:border-primary/0"
-                />
-              </div>
-              <div className="flex flex-col w-full gap-2">
-                <label className="text-sm text-black dark:text-off-white/70 mb-1">
-                  Last name
-                </label>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  placeholder="Last name"
-                  className="border border-gray-300  dark:border-white/10 dark:focus:ring-primary/65 dark:text-off-white/70 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 outline-0 focus:border-primary/0"
-                />
-              </div>
-            </div>
-
-            {/* Email */}
-            <div className="flex flex-col gap-2">
-              <label className="text-sm text-black dark:text-off-white/70 mb-1">
-                Email
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="you@company.com"
-                className="border border-gray-300  dark:border-white/10 dark:focus:ring-primary/65 dark:text-off-white/70 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 outline-0 focus:border-primary/0"
-              />
-            </div>
-
-            {/* Phone */}
-            <div className="flex flex-col gap-2">
-              <label className="text-sm text-black dark:text-off-white/70 mb-1">
-                Phone number
-              </label>
-              <div className="flex gap-3">
-                <CountryDropdown
-                  country={country}
-                  setCountry={handleCountryChange}
-                />
-
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder={phonePlaceholder}
-                  className="border border-gray-300  dark:border-white/10 dark:focus:ring-primary/65 dark:text-off-white/70 rounded-lg p-3 text-sm w-full focus:outline-none focus:ring-2 focus:ring-primary/40 outline-0 focus:border-primary/0"
-                />
-              </div>
-            </div>
-
-            {/* Message */}
-            <div className="flex flex-col gap-2">
-              <label className="text-sm text-black dark:text-off-white/70 mb-1">
-                Message
-              </label>
-              <textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                placeholder="Leave us a message..."
-                className="border border-gray-300  dark:border-white/10 dark:focus:ring-primary/65 dark:text-off-white/70 rounded-lg p-3 text-sm min-h-[150px] focus:outline-none focus:ring-2 focus:ring-primary/40 outline-0 focus:border-primary/0"
-              ></textarea>
-            </div>
-
-            {/* Services */}
-            <div className="flex flex-col gap-3 w-[200px]">
-              <label className="text-sm text-black dark:text-off-white/70">
-                Services
-              </label>
-              <div className="grid gap-3">
-                {["Website design", "UX design", "Mobile App"].map(
-                  (service, index) => (
-                    <label
-                      key={index}
-                      className="flex items-center gap-2 text-sm dark:text-off-white/70"
-                    >
-                      <input
-                        type="checkbox"
-                        className="w-4 h-4 accent-primary/30 dark:accent-off-white/70"
-                        checked={formData.services.includes(service)}
-                        onChange={() => handleServiceChange(service)}
-                      />
-                      {service}
-                    </label>
-                  )
-                )}
-              </div>
-            </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              className="bg-black w-1/4 dark:bg-white dark:text-text group flex justify-center items-center text-white py-3 rounded-lg font-medium hover:bg-primary transition-all duration-500 mt-4 cursor-pointer"
-            >
-              Send message
-              <div className="ml-2 transform transition-transform duration-300 group-hover:rotate-45 ">
-                <FiArrowUpRight />
-              </div>
-            </button>
-          </form>
+          <ContactForm />
         </div>
       </div>
     </div>

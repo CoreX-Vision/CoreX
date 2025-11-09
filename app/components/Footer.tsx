@@ -51,7 +51,7 @@ const Footer = () => {
             <ul className="flex flex-col lg:flex-row gap-6">
               <li>
                 <a
-                  href="#"
+                  href="/privacypolicy"
                   className="text-core-gray dark:text-off-white/70 text-[16px] font-light underline"
                 >
                   Privacy Policy
@@ -59,7 +59,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="/terms"
                   className="text-core-gray dark:text-off-white/70 text-[16px] font-light underline"
                 >
                   Terms & conditions
@@ -77,7 +77,7 @@ const Footer = () => {
             <ul className="flex gap-6 text-xl dark:text-off-white/70 text-core-gray">
               <li>
                 <a
-                  href="https://www.facebook.com/profile.php?id=61579803335718"
+                  href="https://www.facebook.com/profile.php?id=61582481331680"
                   target="_blank"
                 >
                   <FaFacebookF />
@@ -108,7 +108,7 @@ const Footer = () => {
           className="absolute left-0 top-0 bottom-0 w-[800px] opacity-5 object-cover"
         />
       </div>
-      <h1 className="font-extrabold text-[100px] md:text-[200px] lg:text-[380px] 2xl:text-[460px] text-text -mt-10 lg:-mt-20 corex max-h-[120px] md:max-h-[190px] lg:max-h-[350px] 2xl:max-h-[420px]">
+      <h1 className="font-extrabold text-[100px] md:text-[200px] lg:text-[380px] 2xl:text-[460px] text-text mt-0 lg:-mt-20 corex max-h-[90px] md:max-h-[190px] lg:max-h-[350px] 2xl:max-h-[420px]">
         Core X
       </h1>
     </div>

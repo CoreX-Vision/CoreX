@@ -30,6 +30,70 @@ body {
     transition: background-color 0.5s ease, color 0.5s ease;
 }
 
+/* globals.css */
+@keyframes skeleton-loading {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: #0d0d0d50;
+}
+
+@media (prefers-color-scheme: dark) {
+  .skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: #212121;
+}
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(226, 232, 240, 0) 0%,
+    rgba(226, 232, 240, 0.5) 50%,
+    rgba(226, 232, 240, 0) 100%
+  );
+  animation: skeleton-loading 1.5s infinite;
+}
+
+.loader {
+  border-width: 4px;
+  border-style: solid;
+  border-color: transparent;
+  border-top-color: white;
+  border-bottom-color: white;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.recaptcha-container iframe {
+  transform: scale(0.7); /* makes it bigger */
+  transform-origin: top left;
+  margin-bottom: -10px;
+}
+
+
 @font-face {
     font-family: 'SF-Pro';
     src: url('../public/assets/fonts/sf-ui-display-light.ttf') format('truetype');

@@ -8,10 +8,33 @@ import TestimonialCarousel from "./components/Testimonial";
 import { FiArrowUpRight, FiCheck } from "react-icons/fi";
 import CountUp from "./components/CountUp";
 import Applications from "@/data/applications.json";
+import ContactForm from "./components/ContactForm";
+import Link from "next/link";
 
 export default function Home() {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
   return (
-    <div className="w-full h-full flex justify-center items-center flex-col">
+    <div className="w-full h-full flex justify-center items-center flex-col overflow-hidden">
+      {open && (
+        <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
+          <div className="dark:bg-black bg-white shaodw-md dark:bg-dark-800 rounded-xl w-full max-w-2xl p-6 relative">
+            <ContactForm onClose={() => setOpen(false)} />
+          </div>
+        </div>
+      )}
       <div className="w-full lg:px-20 pt-[100px] pb-[20px] lg:pt-40 lg:h-screen flex justify-center items-start relative overflow-hidden">
         <div className="flex flex-col lg:flex-row justify-between items-start gap-10 px-[20px] lg:px-0 z-10">
           <div className="lg:w-[70%] w-full flex flex-col gap-6">
@@ -25,7 +48,7 @@ export default function Home() {
               Native to bring your ideas to life.
             </p>
             <div className="flex justify-center lg:justify-start items-center">
-              <a
+              <Link
                 href="/contact"
                 className="group px-[20px] py-[15px] relative cursor-pointer overflow-hidden dark:bg-white dark:text-black bg-secondary rounded-md flex justify-center items-center mt-6 font-normal text-white hover:bg-primary transition-all duration-300 text-center"
               >
@@ -33,13 +56,16 @@ export default function Home() {
                 <div className="ml-2 transform transition-transform duration-300 group-hover:rotate-45">
                   <FiArrowUpRight />
                 </div>
-              </a>
+              </Link>
             </div>
           </div>
           <div className="lg:w-[30%] w-full relative overflow-hidden rounded-md">
             <Image
               src={Hero}
               alt="corex hero image"
+              priority
+              placeholder="blur"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 50vw"
               className="object-cover h-[250px] w-full lg:h-[450px] rounded-md transform transition-transform duration-300 hover:scale-110"
             />
           </div>
@@ -68,15 +94,15 @@ export default function Home() {
               sociosqu bibendum rutrum placerat cras aliquam.
             </p>
             <div className="flex justify-start items-center gap-6 flex-col sm:flex-row">
-              <a
-                href="/contact"
+              <button
+                onClick={() => setOpen(true)}
                 className="group px-[20px] dark:bg-white dark:text-black py-[15px] cursor-pointer bg-secondary rounded-md flex justify-center items-center mt-6 font-normal text-white hover:bg-primary transition-all duration-300 text-center"
               >
                 Get Started Now
                 <div className="ml-2 transform transition-transform duration-300 group-hover:rotate-45 ">
                   <FiArrowUpRight />
                 </div>
-              </a>
+              </button>
               <a
                 href="/services"
                 className="group px-[20px] py-[15px] dark:text-off-white cursor-pointer rounded-md flex justify-center items-center mt-6 font-normal text-black hover:text-primary transition-all duration-300"
@@ -88,15 +114,27 @@ export default function Home() {
               </a>
             </div>
           </div>
-          <div
-            className="lg:w-[30%] w-full h-[250px] lg:h-[400px] relative overflow-hidden rounded-md flex justify-center items-center p-4 bg-cover bg-center"
-            style={{ backgroundImage: `url(${secondHero.src})` }}
-          >
+          <div className="lg:w-[30%] w-full h-[250px] lg:h-[400px] relative overflow-hidden rounded-md flex justify-center items-center p-4">
             <Image
-              src={secondHerosub}
-              alt="corex hero image"
-              className="object-cover z-10 h-[150px] lg:h-[300px] w-full rounded-md "
+              src={secondHero}
+              alt="background hero"
+              fill
+              placeholder="blur"
+              className="object-cover"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-[5]" />
+            <div className="relative z-10">
+              <Image
+                src={secondHerosub}
+                alt="corex hero image"
+                width={400}
+                height={300}
+                placeholder="blur"
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 50vw"
+                className="object-cover z-10 h-[150px] lg:h-[300px] w-full rounded-md"
+              />
+            </div>
           </div>
         </div>
       </div>

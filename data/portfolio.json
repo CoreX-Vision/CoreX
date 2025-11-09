@@ -4,7 +4,7 @@
     "title": "Zetetic Clothing",
     "author": "CoreX Team",
     "date": "October 1, 2025",
-    "image": "/assets/about-page-section-3-column-image-1.webp",
+    "image": "/assets/projects/zetetic.png",
     "content": "At Corex, we are proud to have partnered with Zetetic Clothing, a growing clothing brand in Sri Lanka, to design and develop their brand-new e-commerce website. The project involved creating a modern UI/UX, integrating payment systems, and optimizing performance.At Corex, we are proud to have partnered with Zetetic Clothing, a growing clothing brand in Sri Lanka, to design and develop their brand-new e-commerce website.  About the Project Zetetic Clothing wanted a modern, user-friendly online store that reflects their brand identity and makes shopping easier for their customers. Our goal was to create a clean, responsive, and secure platform that supports smooth browsing and a seamless checkout experience.  What We Delivered ✅ A fully functional WooCommerce e-commerce store ✅ Responsive design for mobile, tablet, and desktop ✅ Easy product management for t-shirts, trousers, and more ✅ Secure payment integrations including Cash on Delivery, Bank Transfer, and Payzy ✅ A size guide to enhance customer experience ✅ Optimized performance and SEO-friendly structure  The Result The new Zetetic Clothing website is now live, providing customers with a simple, reliable, and engaging shopping experience.  We are excited to see Zetetic Clothing grow online, and we’re proud to have played a part in their digital journey.  👉 Looking to launch your own e-commerce website? Get in touch with Corex and let’s build your digital success story!",
     "link": "www.zetetic.lk"
   },
@@ -13,7 +13,7 @@
     "title": "I Tech Ceylon",
     "author": "Corex Team",
     "date": "September 15, 2025",
-    "image": "/assets/about-page-section-3-column-image-1.webp",
+    "image": "/assets/projects/itech.png",
     "content": "I-Tech Ceylon is your trusted destination for premium Apple products and accessories. Our WooCommerce-powered website offers a seamless shopping experience, featuring a wide range of iPhone, iPad, and MacBook accessories — from protective cases and chargers to high-quality audio gear like AirPods. We also specialize in pre-owned Apple devices, including iPhones, iPads, and MacBooks, carefully tested and certified to ensure top performance and reliability. With secure payment options like Koko, Payzy, Mintpay, and credit cards, plus a user-friendly interface, shopping for your favorite Apple products has never been easier. At I-Tech Ceylon, our mission is to deliver quality, authenticity, and exceptional customer service, making us the go-to store for all your Apple needs in Sri Lanka.",
     "link": "www.ravorasoftware.xyz/demo/i-tech"
   },
@@ -22,7 +22,7 @@
     "title": "MR Tuk Tuk",
     "author": "Corex Team",
     "date": "September 21, 2025",
-    "image": "/assets/about-page-section-3-column-image-1.webp",
+    "image": "/assets/projects/mr-tuk.png",
     "content": "MR Tuk Tuk is your one-stop online store for high-quality vehicle modification products. We specialize in LED headlights, electrical accessories, and stainless steel parts designed specifically for three-wheelers (tuk-tuks) and other vehicles. Our goal is to help vehicle owners upgrade their rides with durable, stylish, and reliable products. Whether you’re looking to enhance visibility with powerful LED lights or add custom stainless steel modifications for style and performance, MR Tuk Tuk has you covered. We provide: Premium LED headlights for improved night driving. Electrical accessories for vehicle performance and safety. Custom stainless steel products for three-wheeler modifications. Shop with confidence and transform your ride with MR Tuk Tuk’s quality products and fast delivery.",
     "link": "www.ravorasoftware.lk"
   },
@@ -31,17 +31,8 @@
     "title": "LZR Lanka",
     "author": "Corex Team",
     "date": "September 19, 2025",
-    "image": "/assets/about-page-section-3-column-image-1.webp",
+    "image": "/assets/projects/lzr.png",
     "content": "We built a WooCommerce website for LZR Lanka, a brand focused on selling high-quality women’s footwear. The website is designed to provide a seamless shopping experience, with features like easy product browsing, secure checkout, and multiple payment options, including Koko, Payzy, Mintpay, and credit cards. The site is mobile-friendly, optimized for speed and SEO, and includes a modern, elegant design that reflects the brand’s style. It helps LZR Lanka manage products, track orders, and engage with customers efficiently while boosting online sales.",
     "link": "www.lzrlanka.lk"
-  },
-  {
-    "id": "5",
-    "title": "Rimshad Digital",
-    "author": "Corex Team",
-    "date": "August 19, 2025",
-    "image": "/assets/about-page-section-3-column-image-1.webp",
-    "content": "I built a personal portfolio website for Rimshad Ahamed to showcase his skills, projects, and experience as a Front-End and Mobile Developer. The website highlights his expertise in React, React Native, Next.js, Tailwind CSS, and other modern technologies. The site is clean, responsive, and user-friendly, allowing visitors to easily explore his portfolio, professional journey, and contact details. It serves as a digital resume and professional brand identity, helping him present his work and connect with potential clients and employers.",
-    "link": "https://rimshadbs-47eaa.web.app/"
   }
 ]
