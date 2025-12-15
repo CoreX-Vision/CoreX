@@ -11,6 +11,7 @@ const PortfolioPage = () => {
   const [data, setData] = useState<typeof Projects>([]);
   const skeletonCount = Projects.length;
 
+  // hell
   useEffect(() => {
     const timer = setTimeout(() => {
       setData(Projects);
