@@ -4,8 +4,6 @@ import Link from "next/link";
 import { FiArrowUpRight } from "react-icons/fi";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { get, ref } from "firebase/database";
-import { database } from "@/firebaseconfig";
 import Projects from "@/data/portfolio.json";
 
 const PortfolioPage = () => {

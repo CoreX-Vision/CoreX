@@ -1,33 +1,38 @@
 @import "tailwindcss";
 
 @theme {
-    --color-primary: #FB3819;
-    --color-secondary: #080c0e;
-    --color-text: #121b1f;
-    --color-core-gray: #515455;
-    --color-white: #FFFFFF;
-    --color-off-white: #f2f5f7;
+  --color-primary: #fb3819;
+  --color-secondary: #080c0e;
+  --color-text: #121b1f;
+  --color-core-gray: #515455;
+  --color-white: #ffffff;
+  --color-off-white: #f2f5f7;
+}
+
+::selection {
+  background-color: #171717;
+  color: #fff;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --color-bg: #FaFBFC;
+    --color-bg: #fafbfc;
   }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: #0D0D0D;
+    --color-bg: #0d0d0d;
   }
 }
 
 body {
-    background-color: var(--color-bg);
-    margin: 0;
-    padding: 0;
-    scroll-behavior: smooth;
-    font-family: "SF-Pro", sans-serif;
-    transition: background-color 0.5s ease, color 0.5s ease;
+  background-color: var(--color-bg);
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  font-family: "SF-Pro", sans-serif;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 /* globals.css */
@@ -48,10 +53,10 @@ body {
 
 @media (prefers-color-scheme: dark) {
   .skeleton {
-  position: relative;
-  overflow: hidden;
-  background-color: #212121;
-}
+    position: relative;
+    overflow: hidden;
+    background-color: #212121;
+  }
 }
 
 .skeleton::after {
@@ -83,8 +88,12 @@ body {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .recaptcha-container iframe {
@@ -93,75 +102,91 @@ body {
   margin-bottom: -10px;
 }
 
-
 @font-face {
-    font-family: 'SF-Pro';
-    src: url('../public/assets/fonts/sf-ui-display-light.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
+  font-family: "SF-Pro";
+  src: url("../public/assets/fonts/sf-ui-display-light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'SF-Pro';
-    src: url('../public/assets/fonts/sf-ui-display-medium.ttf') format('truetype');
-    font-weight: 500;
-    font-style: medium;
+  font-family: "SF-Pro";
+  src: url("../public/assets/fonts/sf-ui-display-medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: medium;
 }
 @font-face {
-    font-family: 'SF-Pro';
-    src: url('../public/assets/fonts/sf-ui-display-semibold.ttf') format('truetype');
-    font-weight: 600;
-    font-style: semibold;
+  font-family: "SF-Pro";
+  src: url("../public/assets/fonts/sf-ui-display-semibold.ttf")
+    format("truetype");
+  font-weight: 600;
+  font-style: semibold;
 }
 @font-face {
-    font-family: 'SF-Pro';
-    src: url('../public/assets/fonts/sf-ui-display-bold.ttf') format('truetype');
-    font-weight: 700;
-    font-style: bold;
+  font-family: "SF-Pro";
+  src: url("../public/assets/fonts/sf-ui-display-bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: bold;
 }
 @font-face {
-    font-family: 'SF-Pro';
-    src: url('../public/assets/fonts/sf-ui-display-black.ttf') format('truetype');
-    font-weight: 900;
-    font-style: black;
+  font-family: "SF-Pro";
+  src: url("../public/assets/fonts/sf-ui-display-black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: black;
 }
 @font-face {
-    font-family: 'SF-Pro';
-    src: url('../public/assets/fonts/sf-ui-display-thin.ttf') format('truetype');
-    font-weight: 200;
-    font-style: thin;
+  font-family: "SF-Pro";
+  src: url("../public/assets/fonts/sf-ui-display-thin.ttf") format("truetype");
+  font-weight: 200;
+  font-style: thin;
 }
 @font-face {
-    font-family: 'SF-Pro';
-    src: url('../public/assets/fonts/sf-ui-display-ultralight.ttf') format('truetype');
-    font-weight: 100;
-    font-style: light;
+  font-family: "SF-Pro";
+  src: url("../public/assets/fonts/sf-ui-display-ultralight.ttf")
+    format("truetype");
+  font-weight: 100;
+  font-style: light;
 }
 
 .corex {
-    background: linear-gradient(180deg, #0d0d0d70, #fff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  background: linear-gradient(180deg, #0d0d0d70, #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 @media (prefers-color-scheme: dark) {
   .corex {
-    background: linear-gradient(180deg, #ffffff, #0D0D0D70); /* Red gradient */
+    background: linear-gradient(180deg, #ffffff, #0d0d0d70); /* Red gradient */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 }
 
 @keyframes scroll-dot {
-  0%   { transform: translateY(0); opacity: 1; }
-  50%  { transform: translateY(14px); opacity: 0.6; }
-  100% { transform: translateY(0); opacity: 1; }
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(14px);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes scroll-glow {
-  0%   { opacity: 0; }
-  50%  { opacity: 0.2; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .animate-scroll-dot {
