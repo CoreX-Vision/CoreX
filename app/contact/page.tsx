@@ -1,5 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 import {
   FiArrowUpRight,
   FiChevronUp,
@@ -30,6 +35,18 @@ const ContactPage = () => {
     message: "",
     services: [] as string[],
   });
+
+  const container = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    gsap.from(".contact-info > *", {
+      y: 50, opacity: 0, duration: 0.8, stagger: 0.15, ease: "power3.out", delay: 0.2
+    });
+
+    gsap.from(".contact-form-section", {
+      x: 50, opacity: 0, duration: 1, ease: "power3.out", delay: 0.4
+    });
+  }, { scope: container });
 
   const showToast = (message: string, type: "success" | "error") => {
     setToast({ message, type });
@@ -118,7 +135,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="w-full min-h-screen justify-center items-center">
+    <div ref={container} className="w-full min-h-screen justify-center items-center">
       {loading && (
         <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
           <div className="loader border-t-4 border-b-4 border-white rounded-full w-12 h-12 animate-spin"></div>
@@ -137,7 +154,7 @@ const ContactPage = () => {
 
       <div className="flex w-full flex-wrap-reverse lg:flex-nowrap justify-between py-20 items-start px-6 gap-6 lg:px-20 lg:gap-20">
         {/* left container */}
-        <div className="lg:w-1/4 sticky top-0 flex flex-col  pt-30 py-[20px] justify-center items-start gap-10">
+        <div className="contact-info lg:w-1/4 sticky top-0 flex flex-col  pt-30 py-[20px] justify-center items-start gap-10">
           <div className="flex flex-col w-full h-full justify-center items-start gap-2">
             <p className="text-[16px] font-bold text-text dark:text-white">
               Chat with us
@@ -204,7 +221,7 @@ const ContactPage = () => {
           </div>
         </div>
         {/* right container */}
-        <div className="lg:w-3/4 px-6 lg:px-0 flex flex-col justify-center pt-4 lg:pt-30 items-center gap-4">
+        <div className="contact-form-section lg:w-3/4 px-6 lg:px-0 flex flex-col justify-center pt-4 lg:pt-30 items-center gap-4">
           <h1 className="text-4xl md:text-5xl font-bold text-center text-black dark:text-white mb-4">
             Contact Our Team
           </h1>

@@ -3,8 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiArrowUpRight } from "react-icons/fi";
 import moment from "moment";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Projects from "@/data/portfolio.json";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const PortfolioPage = () => {
   const [loading, setLoading] = useState(true);
@@ -18,11 +23,22 @@ const PortfolioPage = () => {
       setLoading(false);
     }, 1500);
     return () => clearTimeout(timer);
-  });
+  }, []);
+
+  const container = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    if (!loading) {
+      gsap.from(".portfolio-card", {
+        scrollTrigger: { trigger: ".portfolio-grid", start: "top 80%" },
+        y: 50, opacity: 0, duration: 0.6, stagger: 0.1, ease: "power3.out"
+      });
+    }
+  }, { scope: container, dependencies: [loading] });
 
   return (
-    <div className="w-full h-full py-20 flex justify-center items-center flex-col">
-      <div className="w-full lg:px-20 px-5 pb-[20px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div ref={container} className="w-full h-full py-20 flex justify-center items-center flex-col">
+      <div className="portfolio-grid w-full lg:px-20 px-5 pb-[20px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {loading
           ? Array.from({ length: skeletonCount }).map((_, index) => (
               <div
@@ -45,7 +61,7 @@ const PortfolioPage = () => {
           : data.map((portfolio) => (
               <div
                 key={portfolio.id}
-                className="flex flex-col justify-between items-center gap-6 pt-6"
+                className="portfolio-card flex flex-col justify-between items-center gap-6 pt-6"
               >
                 <div className="overflow-hidden w-full rounded-xl">
                   <Image

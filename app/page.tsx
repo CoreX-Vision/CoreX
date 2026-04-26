@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Hero from "@/public/assets/corex-hero-image.png";
 import secondHero from "@/public/assets/home-section-2.webp";
@@ -10,9 +10,69 @@ import CountUp from "./components/CountUp";
 import Applications from "@/data/applications.json";
 import ContactForm from "./components/ContactForm";
 import Link from "next/link";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SplitType from "split-type";
 
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 export default function Home() {
   const [open, setOpen] = useState(false);
+  const container = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    // Wait for the preloader to finish before animating hero
+    const heroDelay = 2.4; // Slightly more than preloader duration
+
+    // Split text animation for hero title
+    const heroTitle = new SplitType(".hero-title", { types: "words,chars" });
+    const servicesTitle = new SplitType(".services-title", { types: "words,chars" });
+
+    gsap.from(heroTitle.chars, {
+      y: 50,
+      opacity: 0,
+      rotationX: -90,
+      transformOrigin: "0% 50% -50",
+      duration: 1,
+      stagger: 0.02,
+      delay: heroDelay,
+      ease: "back.out(1.2)"
+    });
+
+    gsap.from(servicesTitle.chars, {
+      y: 50,
+      opacity: 0,
+      rotationX: -90,
+      transformOrigin: "0% 50% -50",
+      duration: 1,
+      stagger: 0.02,
+      delay: heroDelay,
+      ease: "back.out(1.2)"
+    })
+
+    gsap.from(".hero-desc", { y: 30, opacity: 0, duration: 1, delay: heroDelay + 0.5, ease: "power3.out" });
+    gsap.from(".hero-btn", { y: 20, opacity: 0, duration: 0.8, delay: heroDelay + 0.7, ease: "power3.out" });
+    gsap.from(".hero-img", { scale: 0.8, opacity: 0, duration: 1.2, delay: heroDelay, ease: "power3.out" });
+
+    gsap.from(".services-text > *", {
+      scrollTrigger: { trigger: ".services-section", start: "top 80%" },
+      y: 50, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out"
+    });
+    gsap.from(".services-img", {
+      scrollTrigger: { trigger: ".services-section", start: "top 80%" },
+      x: 50, opacity: 0, duration: 1, ease: "power3.out"
+    });
+
+    gsap.from(".feature-card", {
+      scrollTrigger: { trigger: ".features-section", start: "top 70%" },
+      y: 50, opacity: 0, duration: 0.6, stagger: 0.15, ease: "power3.out"
+    });
+
+    gsap.from(".stat-row", {
+      scrollTrigger: { trigger: ".stats-section", start: "top 80%" },
+      y: 30, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out"
+    });
+  }, { scope: container });
 
   useEffect(() => {
     if (open) {
@@ -27,7 +87,7 @@ export default function Home() {
   }, [open]);
 
   return (
-    <div className="w-full h-full flex justify-center items-center flex-col overflow-hidden">
+    <div ref={container} className="w-full h-full flex justify-center items-center flex-col overflow-hidden">
       {open && (
         <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
           <div className="dark:bg-black bg-white shaodw-md dark:bg-dark-800 rounded-xl w-full max-w-2xl p-6 relative">
@@ -38,10 +98,10 @@ export default function Home() {
       <div className="w-full lg:px-20 pt-[100px] pb-[20px] lg:pt-40 lg:h-screen flex justify-center items-start relative overflow-hidden">
         <div className="flex flex-col lg:flex-row justify-between items-start gap-10 px-[20px] lg:px-0 z-10">
           <div className="lg:w-[70%] w-full flex flex-col gap-6">
-            <h1 className="font-bold dark:text-white text-[32px] text-s text-text md:text-[50px] lg:text-[58px] 2xl:text-[70px] lg:w-[70%] leading-[1.3em] lg:text-start text-center">
+            <h1 className="hero-title font-bold dark:text-white text-[32px] text-s text-text md:text-[50px] lg:text-[58px] 2xl:text-[70px] lg:w-[70%] leading-[1.3em] lg:text-start text-center">
               Build Modern Scalable and beautiful Digital Experiences
             </h1>
-            <p className="text-core-gray dark:text-off-white/60 font-light text-[20px] mt-2 lg:w-[90%] 2xl:w-[65%] lg:text-start text-center">
+            <p className="hero-desc text-core-gray dark:text-off-white/60 font-light text-[20px] mt-2 lg:w-[90%] 2xl:w-[65%] lg:text-start text-center">
               At CoreX Vision – Sri Lanka, we create modern, scalable digital
               experiences. From websites to mobile apps, our team uses the
               latest technologies like React, Next.js, WordPress, and React
@@ -59,7 +119,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="lg:w-[30%] w-full relative overflow-hidden rounded-md">
+          <div className="hero-img lg:w-[30%] w-full relative overflow-hidden rounded-md">
             <Image
               src={Hero}
               alt="corex hero image"
@@ -78,13 +138,13 @@ export default function Home() {
         </div>
         <div className="w-96 h-96 flex absolute blur-[90px] animate-spin z-0 bg-linear-120 from-pink-500 to-blue-600 rounded-full -bottom-20 lg:bottom-40 right-0" />
       </div>
-      <div className="w-full flex lg:px-20 py-[20px] justify-center items-center lg:items-start">
+      <div className="services-section w-full flex lg:px-20 py-[20px] justify-center items-center lg:items-start">
         <div className="flex flex-col lg:flex-row justify-between items-start gap-10 px-[20px] lg:px-0">
-          <div className="lg:w-[70%] w-full flex flex-col justify-center items-center gap-6 lg:items-start">
+          <div className="services-text lg:w-[70%] w-full flex flex-col justify-center items-center gap-6 lg:items-start">
             <div className="px-6 py-2 bg-off-white dark:bg-[#393939]/20 dark:text-white w-[200px]  flex items-center justify-center rounded-md mb-4">
               Exclusive Services
             </div>
-            <h1 className="text-text font-bold dark:text-white text-[32px] md:text-[50px] lg:text-[70px] leading-[1.3em] lg:w-[600px] lg:text-start text-center">
+            <h1 className="services-title text-text font-bold dark:text-white text-[32px] md:text-[50px] lg:text-[70px] leading-[1.3em] lg:w-[600px] lg:text-start text-center">
               A Team Of Experts You Can Trust
             </h1>
             <p className="text-core-gray dark:text-off-white/60 font-light text-[20px] mt-2 w-[90%] lg:text-start text-center">
@@ -114,7 +174,7 @@ export default function Home() {
               </a>
             </div>
           </div>
-          <div className="lg:w-[30%] w-full h-[250px] lg:h-[400px] relative overflow-hidden rounded-md flex justify-center items-center p-4">
+          <div className="services-img lg:w-[30%] w-full h-[250px] lg:h-[400px] relative overflow-hidden rounded-md flex justify-center items-center p-4">
             <Image
               src={secondHero}
               alt="background hero"
@@ -138,7 +198,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="w-full lg:p-20  pb-[20px]  flex justify-center items-start">
+      <div className="features-section w-full lg:p-20  pb-[20px]  flex justify-center items-start">
         <div className="w-full flex py-[20px] lg:py-20 justify-center items-center flex-col gap-16 px-[20px] lg:px-0">
           <h1 className="lg:text-[70px] md:text-[50px] dark:text-white text-[32px] text-text font-bold">
             Our Application Features.
@@ -154,9 +214,8 @@ export default function Home() {
               return (
                 <div
                   key={items.id}
-                  className={`bg-off-white dark:bg-[#212121]  group transition-all duration-300 hover:transform hover:-translate-y-3 lg:w-[25%] min-h-[320px] flex flex-col justify-start items-start p-6 gap-4 rounded-md ${
-                    hoverGradient[index % hoverGradient.length]
-                  }`}
+                  className={`feature-card bg-off-white dark:bg-[#212121]  group transition-all duration-300 hover:transform hover:-translate-y-3 lg:w-[25%] min-h-[320px] flex flex-col justify-start items-start p-6 gap-4 rounded-md ${hoverGradient[index % hoverGradient.length]
+                    }`}
                 >
                   <p className="font-bold text-[16px] text-text dark:text-white group-hover:text-white transition-all duration-300">
                     {items.title}
@@ -181,9 +240,9 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="w-full lg:px-20  pb-[20px]  flex justify-center items-start">
+      <div className="stats-section w-full lg:px-20  pb-[20px]  flex justify-center items-start">
         <div className="flex py-[30px] lg:py-20 justify-center items-center flex-col gap-16 px-[20px] lg:px-0">
-          <div className="w-full flex flex-col lg:flex-row items-center justify-between lg:items-end gap-6 ">
+          <div className="stat-row w-full flex flex-col lg:flex-row items-center justify-between lg:items-end gap-6 ">
             <h1 className="text-[32px] dark:text-white md:text-[50px] lg:text-[70px] text-text font-bold leading-[1.3em] lg:w-[67%] text-center lg:text-start">
               Successful Solutions That Drive Your Business Forward
             </h1>
@@ -197,7 +256,7 @@ export default function Home() {
               </div>
             </a>
           </div>
-          <div className="w-full justify-between items-center flex flex-col lg:flex-row gap-6">
+          <div className="stat-row w-full justify-between items-center flex flex-col lg:flex-row gap-6">
             <div>
               <p className="text-text dark:text-white text-[45px] font-bold text-center lg:text-start">
                 <CountUp to={98} suffix="%" />
@@ -219,7 +278,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="w-full justify-between items-center flex flex-col lg:flex-row gap-6">
+          <div className="stat-row w-full justify-between items-center flex flex-col lg:flex-row gap-6">
             <div>
               <p className="text-text dark:text-white text-[45px] font-bold text-center lg:text-start">
                 $<CountUp to={500} />
@@ -241,7 +300,7 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="w-full justify-between items-center flex flex-col lg:flex-row gap-6">
+          <div className="stat-row w-full justify-between items-center flex flex-col lg:flex-row gap-6">
             <div>
               <p className="text-text text-[45px] dark:text-white font-bold text-center lg:text-start">
                 +<CountUp to={4} />

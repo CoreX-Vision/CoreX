@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://corexvision.com
+Host: https://www.corexvision.com
 
 # Sitemaps
-Sitemap: https://corexvision.com/sitemap.xml
+Sitemap: https://www.corexvision.com/sitemap.xml

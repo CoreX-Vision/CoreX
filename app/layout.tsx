@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Preloader from "./components/Preloader";
+import FooterWrapper from "./components/FooterWrapper";
 import Script from "next/script";
 
 export const metadata: Metadata = {
@@ -30,9 +32,14 @@ export default function RootLayout({
         `}
       </Script>
       <body>
-        <Navbar />
-        {children}
-        <Footer />
+        <Preloader />
+        <div className="relative z-10 bg-white dark:bg-[#0D0D0D] min-h-screen flex flex-col shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+          <Navbar />
+          {children}
+        </div>
+        <FooterWrapper>
+          <Footer />
+        </FooterWrapper>
       </body>
     </html>
   );

@@ -1,21 +1,61 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useRef } from "react";
 import Img from "@/public/assets/about-page-hero-image.webp";
 import Founder from "@/public/assets/My Pic.png";
 import { FiArrowUpRight } from "react-icons/fi";
 import about from "@/public/assets/about-page-section-3-column-image-1.webp";
 import TeamCarousal from "../components/TeamCarousal";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import SplitType from "split-type";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const page = () => {
+  const container = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const title = new SplitType(".about-title", { types: "words,chars" });
+    gsap.from(title.chars, {
+      y: 50, opacity: 0, rotationX: -90, transformOrigin: "0% 50% -50",
+      duration: 1, stagger: 0.02, ease: "back.out(1.2)"
+    });
+
+    gsap.from(".about-hero", {
+      y: 50, opacity: 0, duration: 1, delay: 0.5, ease: "power3.out"
+    });
+
+    gsap.from(".vision-text > *", {
+      scrollTrigger: { trigger: ".vision-section", start: "top 80%" },
+      y: 50, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out"
+    });
+
+    gsap.from(".founder-box", {
+      scrollTrigger: { trigger: ".vision-section", start: "top 80%" },
+      x: 50, opacity: 0, duration: 1, ease: "power3.out"
+    });
+
+    gsap.from(".choose-card", {
+      scrollTrigger: { trigger: ".choose-section", start: "top 70%" },
+      y: 50, opacity: 0, duration: 0.6, stagger: 0.15, ease: "power3.out"
+    });
+
+    gsap.from(".team-text", {
+      scrollTrigger: { trigger: ".team-section", start: "top 80%" },
+      y: 50, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out"
+    });
+  }, { scope: container });
+
   return (
-    <div className="w-full h-full flex justify-center items-center flex-col">
+    <div ref={container} className="w-full h-full flex justify-center items-center flex-col">
       <div className="w-full lg:px-20 pt-[100px] pb-[20px] lg:pt-24 flex justify-start items-start px-[20px]">
-        <h1 className="font-bold text-[32px] dark:text-white md:text-[50px] text-center lg:text-start lg:text-[70px] lg:w-[70%] leading-[1.3em]">
+        <h1 className="about-title font-bold text-[32px] dark:text-white md:text-[50px] text-center lg:text-start lg:text-[70px] lg:w-[70%] leading-[1.3em]">
           We Are Here To Make Your WebSites
         </h1>
       </div>
-      <div className="w-full lg:px-20 lg:pb-20 flex justify-start items-start px-[20px]">
+      <div className="about-hero w-full lg:px-20 lg:pb-20 flex justify-start items-start px-[20px]">
         <div
           className="w-full max-h-[200px] lg:min-h-[390px] flex justify-center items-end p-4 lg:px-10 lg:py-10 rounded-2xl relative"
           style={{ backgroundImage: `url(${Img.src})` }}
@@ -30,8 +70,8 @@ const page = () => {
           </p>
         </div>
       </div>
-      <div className="w-full lg:px-20 pt-10 py-5s lg:py-20 lg:pt-20 flex flex-col lg:flex-row gap-6 justify-between items-start px-[20px]">
-        <div className="flex justify-center items-center lg:items-start gap-4 flex-col lg:w-3/5">
+      <div className="vision-section w-full lg:px-20 pt-10 py-5s lg:py-20 lg:pt-20 flex flex-col lg:flex-row gap-6 justify-between items-start px-[20px]">
+        <div className="vision-text flex justify-center items-center lg:items-start gap-4 flex-col lg:w-3/5">
           <h1 className="font-normal dark:text-white text-[32px] md:text-[50px] text-center lg:text-start lg:text-[70px] lg:w-[70%] leading-[1.3em]">
             Our Vision
           </h1>
@@ -41,7 +81,7 @@ const page = () => {
             that empower businesses and inspire customer confidence.
           </p>
         </div>
-        <div className="w-full lg:w-[600px] bg-primary/20 min-h-[250px] rounded-md flex flex-col justify-center items-start py-10 px-6 gap-6">
+        <div className="founder-box w-full lg:w-[600px] bg-primary/20 min-h-[250px] rounded-md flex flex-col justify-center items-start py-10 px-6 gap-6">
           <div className="w-full flex justify-start items-center gap-4">
             <Image
               src={Founder}
@@ -68,7 +108,7 @@ const page = () => {
           </div>
         </div>
       </div>
-      <div className="w-full flex-col gap-10 py-10 lg:py-20 lg:px-20 flex justify-center items-center px-[20px]">
+      <div className="choose-section w-full flex-col gap-10 py-10 lg:py-20 lg:px-20 flex justify-center items-center px-[20px]">
         <div className="w-full flex flex-col gap-0 lg:flex-row justify-center lg:justify-between items-center lg:items-end">
           <div className="flex justify-center items-start flex-col">
             <h1 className="font-normal dark:text-white text-[32px] md:text-[50px] text-center lg:text-start lg:text-[70px] lg:w-[70%] leading-[1.3em]">
@@ -91,7 +131,7 @@ const page = () => {
           </div>
         </div>
         <div className="w-full flex flex-col lg:flex-row justify-center items-center gap-4">
-          <div className="relative group dark:bg-[#212121] w-full lg:w-[25%] min-h-[160px] lg:h-[250px] p-6 rounded-md flex flex-col justify-between items-start hover:transform hover:-translate-y-3 transition-all duration-300 bg-off-white hover:bg-gradient-to-bl from-fuchsia-900 to-pink-500">
+          <div className="choose-card relative group dark:bg-[#212121] w-full lg:w-[25%] min-h-[160px] lg:h-[250px] p-6 rounded-md flex flex-col justify-between items-start hover:transform hover:-translate-y-3 transition-all duration-300 bg-off-white hover:bg-gradient-to-bl from-fuchsia-900 to-pink-500">
             <h3 className="lg:text-[16px] text-[14px] group-hover:text-white dark:text-white font-normal z-10">
               01 - Expertise in Web & Mobile Development
             </h3>
@@ -100,7 +140,7 @@ const page = () => {
               tailored to your goals.
             </p>
           </div>
-          <div className="relative group dark:bg-[#212121] w-full lg:w-[25%] min-h-[160px] lg:h-[250px] p-6 rounded-md flex flex-col justify-between items-start hover:transform hover:-translate-y-3 transition-all duration-300 bg-off-white hover:bg-gradient-to-bl from-blue-500 to-indigo-900">
+          <div className="choose-card relative group dark:bg-[#212121] w-full lg:w-[25%] min-h-[160px] lg:h-[250px] p-6 rounded-md flex flex-col justify-between items-start hover:transform hover:-translate-y-3 transition-all duration-300 bg-off-white hover:bg-gradient-to-bl from-blue-500 to-indigo-900">
             <h3 className="lg:text-[16px] text-[14px] group-hover:text-white dark:text-white font-normal z-10">
               02 - Customer-First Approach
             </h3>
@@ -109,7 +149,7 @@ const page = () => {
               transparency.
             </p>
           </div>
-          <div className="relative group dark:bg-[#212121] w-full lg:w-[25%] min-h-[160px] lg:h-[250px] p-6 rounded-md flex flex-col justify-between items-start hover:transform hover:-translate-y-3 transition-all duration-300 bg-off-white hover:bg-gradient-to-bl from-green-500 to-emerald-900">
+          <div className="choose-card relative group dark:bg-[#212121] w-full lg:w-[25%] min-h-[160px] lg:h-[250px] p-6 rounded-md flex flex-col justify-between items-start hover:transform hover:-translate-y-3 transition-all duration-300 bg-off-white hover:bg-gradient-to-bl from-green-500 to-emerald-900">
             <h3 className="lg:text-[16px] text-[14px] group-hover:text-white dark:text-white font-normal z-10">
               03 - Innovation & Reliability
             </h3>
@@ -118,7 +158,7 @@ const page = () => {
               precision, ensuring both creativity and dependability.
             </p>
           </div>
-          <div className="relative group dark:bg-[#212121] w-full lg:w-[25%] min-h-[160px] lg:h-[250px] p-6 rounded-md flex flex-col justify-between items-start hover:transform hover:-translate-y-3 transition-all duration-300 bg-off-white hover:bg-gradient-to-bl from-yellow-900 to-amber-500">
+          <div className="choose-card relative group dark:bg-[#212121] w-full lg:w-[25%] min-h-[160px] lg:h-[250px] p-6 rounded-md flex flex-col justify-between items-start hover:transform hover:-translate-y-3 transition-all duration-300 bg-off-white hover:bg-gradient-to-bl from-yellow-900 to-amber-500">
             <h3 className="lg:text-[16px] text-[14px] group-hover:text-white dark:text-white font-normal z-10">
               04 - Scalable Digital Solutions
             </h3>
@@ -129,8 +169,8 @@ const page = () => {
           </div>
         </div>
       </div>
-      <div className="w-full flex-col gap-10 lg:px-20 py-5 lg:py-20 flex justify-center items-center px-[20px]">
-        <div className="w-full flex flex-col gap-2 lg:gap-20 lg:flex-row justify-between items-center ">
+      <div className="team-section w-full flex-col gap-10 lg:px-20 py-5 lg:py-20 flex justify-center items-center px-[20px]">
+        <div className="team-text w-full flex flex-col gap-2 lg:gap-20 lg:flex-row justify-between items-center ">
           <h1 className="font-normal dark:text-white text-[32px] md:text-[50px] text-center lg:text-start lg:text-[70px] lg:w-[60%] 2xl:w-[40%] leading-[1.3em]">
             A Team Of Experts You Can Trust
           </h1>

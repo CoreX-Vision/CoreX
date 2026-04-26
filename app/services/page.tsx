@@ -3,12 +3,46 @@ import React from "react";
 import { FiArrowUpRight } from "react-icons/fi";
 import Lottie from "lottie-react";
 import LazyLottie from "../components/Lottie";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const page = () => {
+  const container = React.useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    gsap.from(".service-block", {
+      scrollTrigger: { trigger: ".service-block", start: "top 80%" },
+      y: 50, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out"
+    });
+
+    gsap.from(".service-anim", {
+      scrollTrigger: { trigger: ".service-block", start: "top 80%" },
+      scale: 0.8, opacity: 0, duration: 1, ease: "power3.out"
+    });
+    
+    // Animate all sections
+    const sections = gsap.utils.toArray(".service-section") as HTMLElement[];
+    sections.forEach((sec, i) => {
+      if(i === 0) return; // Skip first block as it has its own animation above or handles differently if needed. Actually let's just use generic classes.
+      
+      gsap.from(sec.querySelectorAll(".service-text > *"), {
+        scrollTrigger: { trigger: sec, start: "top 80%" },
+        y: 30, opacity: 0, duration: 0.6, stagger: 0.15, ease: "power3.out"
+      });
+      gsap.from(sec.querySelector(".service-anim"), {
+        scrollTrigger: { trigger: sec, start: "top 80%" },
+        scale: 0.9, opacity: 0, duration: 1, ease: "power3.out"
+      });
+    });
+  }, { scope: container });
+
   return (
-    <div className="w-full h-full flex justify-center items-center flex-col">
-      <div className="flex flex-col lg:flex-row justify-between items-start pt-20 px-6 lg:pt-40 pb-20 lg:px-20 gap-20">
-        <div className="w-full lg:w-[50%] flex flex-col justify-start items-start gap-4">
+    <div ref={container} className="w-full h-full flex justify-center items-center flex-col">
+      <div className="service-section service-block flex flex-col lg:flex-row justify-between items-start pt-20 px-6 lg:pt-40 pb-20 lg:px-20 gap-20">
+        <div className="service-text w-full lg:w-[50%] flex flex-col justify-start items-start gap-4">
           <h1 className="font-bold text-[32px] md:text-[50px] dark:text-white text-center lg:text-start leading-[1.3em]">
             Website Development
           </h1>
@@ -44,15 +78,15 @@ const page = () => {
             </button>
           </div> */}
         </div>
-        <div className="flex w-full lg:w-[50%] justify-center items-center">
+        <div className="service-anim flex w-full lg:w-[50%] justify-center items-center">
           <LazyLottie path="Team.json" />
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row justify-between items-start py-20 px-6 lg:px-20 gap-20">
-        <div className="flex w-full lg:w-[50%] justify-center items-center">
+      <div className="service-section flex flex-col lg:flex-row justify-between items-start py-20 px-6 lg:px-20 gap-20">
+        <div className="service-anim flex w-full lg:w-[50%] justify-center items-center">
           <LazyLottie path="Business woman.json" />
         </div>
-        <div className="flex w-full lg:w-[50%] flex-col justify-start items-start gap-4">
+        <div className="service-text flex w-full lg:w-[50%] flex-col justify-start items-start gap-4">
           <h1 className="font-bold text-[32px] md:text-[50px] text-center lg:text-start leading-[1.3em] dark:text-white">
             Mobile App Development
           </h1>
@@ -89,8 +123,8 @@ const page = () => {
           </div> */}
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row justify-between items-start py-20 px-6 lg:px-20 gap-20">
-        <div className="flex w-full lg:w-[50%] flex-col justify-start items-start gap-4">
+      <div className="service-section flex flex-col lg:flex-row justify-between items-start py-20 px-6 lg:px-20 gap-20">
+        <div className="service-text flex w-full lg:w-[50%] flex-col justify-start items-start gap-4">
           <h1 className="font-bold text-[32px] md:text-[50px] text-center lg:text-start leading-[1.3em] dark:text-white">
             E-Commerce Solutions
           </h1>
@@ -125,15 +159,15 @@ const page = () => {
             </button>
           </div> */}
         </div>
-        <div className="flex w-full lg:w-[50%] justify-center items-center">
+        <div className="service-anim flex w-full lg:w-[50%] justify-center items-center">
           <LazyLottie path="Interview..json" />
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row justify-between items-start py-20 px-6 lg:px-20 gap-20">
-        <div className="flex w-full lg:w-[50%] justify-center items-center">
+      <div className="service-section flex flex-col lg:flex-row justify-between items-start py-20 px-6 lg:px-20 gap-20">
+        <div className="service-anim flex w-full lg:w-[50%] justify-center items-center">
           <LazyLottie path="Company employees sharing thoughts and ideas.json" />
         </div>
-        <div className="flex w-full lg:w-[50%] flex-col justify-start items-start gap-4">
+        <div className="service-text flex w-full lg:w-[50%] flex-col justify-start items-start gap-4">
           <h1
             className="font-bold text-[32px] md:text-[50px] text-center lg:text-start leading-[1.3em] dark:text-white
           "
@@ -174,8 +208,8 @@ const page = () => {
           </div> */}
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row justify-between items-start py-20 px-6 lg:px-20 gap-20">
-        <div className="flex w-full lg:w-[50%] flex-col justify-start items-start gap-4">
+      <div className="service-section flex flex-col lg:flex-row justify-between items-start py-20 px-6 lg:px-20 gap-20">
+        <div className="service-text flex w-full lg:w-[50%] flex-col justify-start items-start gap-4">
           <h1 className="font-bold text-[32px] md:text-[50px] text-center lg:text-start leading-[1.3em] dark:text-white">
             Maintenance & Support
           </h1>
