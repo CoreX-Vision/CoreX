@@ -14,6 +14,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
+import { isInitialLoad } from "./utils/isInitialLoad";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 export default function Home() {
@@ -21,8 +22,8 @@ export default function Home() {
   const container = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    // Wait for the preloader to finish before animating hero
-    const heroDelay = 2.4; // Slightly more than preloader duration
+    // Determine if we need to wait for the preloader
+    const heroDelay = isInitialLoad ? 2.5 : 0.2;
 
     // Split text animation for hero title
     const heroTitle = new SplitType(".hero-title", { types: "words,chars" });
@@ -40,15 +41,15 @@ export default function Home() {
     });
 
     gsap.from(servicesTitle.chars, {
+      scrollTrigger: { trigger: ".services-title", start: "top 80%" },
       y: 50,
       opacity: 0,
       rotationX: -90,
       transformOrigin: "0% 50% -50",
       duration: 1,
       stagger: 0.02,
-      delay: heroDelay,
       ease: "back.out(1.2)"
-    })
+    });
 
     gsap.from(".hero-desc", { y: 30, opacity: 0, duration: 1, delay: heroDelay + 0.5, ease: "power3.out" });
     gsap.from(".hero-btn", { y: 20, opacity: 0, duration: 0.8, delay: heroDelay + 0.7, ease: "power3.out" });
@@ -63,15 +64,23 @@ export default function Home() {
       x: 50, opacity: 0, duration: 1, ease: "power3.out"
     });
 
-    gsap.from(".feature-card", {
-      scrollTrigger: { trigger: ".features-section", start: "top 70%" },
-      y: 50, opacity: 0, duration: 0.6, stagger: 0.15, ease: "power3.out"
-    });
+    gsap.fromTo(".feature-card-wrapper", 
+      { y: 50, opacity: 0 },
+      {
+        scrollTrigger: { trigger: ".features-section", start: "top 70%" },
+        y: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: "power3.out"
+      }
+    );
 
     gsap.from(".stat-row", {
       scrollTrigger: { trigger: ".stats-section", start: "top 80%" },
       y: 30, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out"
     });
+
+    return () => {
+      heroTitle.revert();
+      servicesTitle.revert();
+    };
   }, { scope: container });
 
   useEffect(() => {
@@ -110,7 +119,7 @@ export default function Home() {
             <div className="flex justify-center lg:justify-start items-center">
               <Link
                 href="/contact"
-                className="group px-[20px] py-[15px] relative cursor-pointer overflow-hidden dark:bg-white dark:text-black bg-secondary rounded-md flex justify-center items-center mt-6 font-normal text-white hover:bg-primary transition-all duration-300 text-center"
+                className="hero-btn group px-[20px] py-[15px] relative cursor-pointer overflow-hidden dark:bg-white dark:text-black bg-secondary rounded-md flex justify-center items-center mt-6 font-normal text-white hover:bg-primary transition-all duration-300 text-center"
               >
                 Get Start
                 <div className="ml-2 transform transition-transform duration-300 group-hover:rotate-45">
@@ -203,7 +212,7 @@ export default function Home() {
           <h1 className="lg:text-[70px] md:text-[50px] dark:text-white text-[32px] text-text font-bold">
             Our Application Features.
           </h1>
-          <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
+          <div className="flex flex-col lg:flex-row w-full justify-between items-center gap-6">
             {Applications.map((items, index) => {
               const hoverGradient = [
                 "hover:bg-gradient-to-br from-blue-400 to-indigo-500",
@@ -212,28 +221,28 @@ export default function Home() {
                 "hover:bg-gradient-to-tl from-purple-400 to-fuchsia-500",
               ];
               return (
-                <div
-                  key={items.id}
-                  className={`feature-card bg-off-white dark:bg-[#212121]  group transition-all duration-300 hover:transform hover:-translate-y-3 lg:w-[25%] min-h-[320px] flex flex-col justify-start items-start p-6 gap-4 rounded-md ${hoverGradient[index % hoverGradient.length]
-                    }`}
-                >
-                  <p className="font-bold text-[16px] text-text dark:text-white group-hover:text-white transition-all duration-300">
-                    {items.title}
-                  </p>
-                  <h2 className="font-light dark:text-white group-hover:text-off-white transition-all duration-300 text-[14px] text-text">
-                    {items.desc}
-                  </h2>
-                  <ul className="flex flex-col gap-2 mt-2">
-                    {items.list.map((point: string, index: number) => (
-                      <li
-                        key={index}
-                        className="flex items-center dark:text-off-white/80 group-hover:text-off-white/80 transition-all duration-300 justify-start gap-2 text-core-gray font-light text-[15px]"
-                      >
-                        <FiCheck className="text-primary mt-[2px]" size={14} />
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
+                <div key={items.id} className="feature-card-wrapper w-full lg:w-[25%] h-full">
+                  <div
+                    className={`bg-off-white dark:bg-[#212121] group transition-all duration-300 hover:transform hover:-translate-y-3 min-h-[320px] h-full flex flex-col justify-start items-start p-6 gap-4 rounded-md w-full ${hoverGradient[index % hoverGradient.length]}`}
+                  >
+                    <p className="font-bold text-[16px] text-text dark:text-white group-hover:text-white transition-all duration-300">
+                      {items.title}
+                    </p>
+                    <h2 className="font-light dark:text-white group-hover:text-off-white transition-all duration-300 text-[14px] text-text">
+                      {items.desc}
+                    </h2>
+                    <ul className="flex flex-col gap-2 mt-2 w-full">
+                      {items.list.map((point: string, index: number) => (
+                        <li
+                          key={index}
+                          className="flex items-center dark:text-off-white/80 group-hover:text-off-white/80 transition-all duration-300 justify-start gap-2 text-core-gray font-light text-[15px]"
+                        >
+                          <FiCheck className="text-primary mt-[2px] flex-shrink-0" size={14} />
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               );
             })}

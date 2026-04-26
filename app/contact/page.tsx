@@ -3,6 +3,7 @@ import React, { useState, useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { isInitialLoad } from "../utils/isInitialLoad";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 import {
@@ -39,12 +40,14 @@ const ContactPage = () => {
   const container = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
+    const heroDelay = isInitialLoad ? 2.5 : 0.2;
+
     gsap.from(".contact-info > *", {
-      y: 50, opacity: 0, duration: 0.8, stagger: 0.15, ease: "power3.out", delay: 0.2
+      y: 50, opacity: 0, duration: 0.8, stagger: 0.15, ease: "power3.out", delay: heroDelay
     });
 
     gsap.from(".contact-form-section", {
-      x: 50, opacity: 0, duration: 1, ease: "power3.out", delay: 0.4
+      x: 50, opacity: 0, duration: 1, ease: "power3.out", delay: heroDelay + 0.2
     });
   }, { scope: container });
 

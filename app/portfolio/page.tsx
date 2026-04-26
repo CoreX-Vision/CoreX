@@ -8,6 +8,7 @@ import Projects from "@/data/portfolio.json";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { isInitialLoad } from "../utils/isInitialLoad";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -29,9 +30,9 @@ const PortfolioPage = () => {
 
   useGSAP(() => {
     if (!loading) {
+      const heroDelay = isInitialLoad ? 2.5 : 0.2;
       gsap.from(".portfolio-card", {
-        scrollTrigger: { trigger: ".portfolio-grid", start: "top 80%" },
-        y: 50, opacity: 0, duration: 0.6, stagger: 0.1, ease: "power3.out"
+        y: 50, opacity: 0, duration: 0.6, stagger: 0.1, delay: heroDelay, ease: "power3.out"
       });
     }
   }, { scope: container, dependencies: [loading] });

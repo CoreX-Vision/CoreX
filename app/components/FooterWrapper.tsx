@@ -33,7 +33,7 @@ export default function FooterWrapper({
       className="relative w-full"
       style={{ height: footerHeight > 0 ? footerHeight : "auto" }}
     >
-      <div className="fixed bottom-0 left-0 w-full z-[-1]" ref={footerRef}>
+      <div className="fixed bottom-0 left-0 w-full z-0" ref={footerRef}>
         {children}
       </div>
     </div>

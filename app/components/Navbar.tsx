@@ -65,7 +65,7 @@ const Navbar = () => {
               const isActive = pathname === link.href;
               return (
                 <li key={index} className="relative group">
-                  <a
+                  <Link
                     href={link.href}
                     className={`md:px-4 md:py-3  flex items-center gap-2 p-2 transition-all duration-500 rounded-sm text-[16px]
                     ${
@@ -79,7 +79,7 @@ const Navbar = () => {
                     }`}
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               );
             })}
@@ -128,7 +128,7 @@ const Navbar = () => {
             {navLinks.map((link, index) => {
               const isActive = pathname === link.href;
               return (
-                <a
+                <Link
                   key={index}
                   href={link.href}
                   className={`px-4 py-2 rounded-md transition-all duration-300 text-center ${
@@ -136,9 +136,10 @@ const Navbar = () => {
                       ? "bg-secondary text-white dark:text-black dark:bg-white"
                       : "bg-transparent text-secondary dark:text-white"
                   }`}
+                  onClick={() => setIsOpen(false)}
                 >
                   {link.name}
-                </a>
+                </Link>
               );
             })}
           </div>

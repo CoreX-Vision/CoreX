@@ -10,6 +10,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
+import { isInitialLoad } from "../utils/isInitialLoad";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -17,14 +18,16 @@ const page = () => {
   const container = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
+    const heroDelay = isInitialLoad ? 2.5 : 0.2;
+
     const title = new SplitType(".about-title", { types: "words,chars" });
     gsap.from(title.chars, {
       y: 50, opacity: 0, rotationX: -90, transformOrigin: "0% 50% -50",
-      duration: 1, stagger: 0.02, ease: "back.out(1.2)"
+      duration: 1, stagger: 0.02, delay: heroDelay, ease: "back.out(1.2)"
     });
 
     gsap.from(".about-hero", {
-      y: 50, opacity: 0, duration: 1, delay: 0.5, ease: "power3.out"
+      y: 50, opacity: 0, duration: 1, delay: heroDelay + 0.3, ease: "power3.out"
     });
 
     gsap.from(".vision-text > *", {
@@ -37,15 +40,22 @@ const page = () => {
       x: 50, opacity: 0, duration: 1, ease: "power3.out"
     });
 
-    gsap.from(".choose-card", {
-      scrollTrigger: { trigger: ".choose-section", start: "top 70%" },
-      y: 50, opacity: 0, duration: 0.6, stagger: 0.15, ease: "power3.out"
-    });
+    gsap.fromTo(".choose-card-wrapper", 
+      { y: 50, opacity: 0 },
+      {
+        scrollTrigger: { trigger: ".choose-section", start: "top 70%" },
+        y: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: "power3.out"
+      }
+    );
 
     gsap.from(".team-text", {
       scrollTrigger: { trigger: ".team-section", start: "top 80%" },
       y: 50, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out"
     });
+
+    return () => {
+      title.revert();
+    };
   }, { scope: container });
 
   return (

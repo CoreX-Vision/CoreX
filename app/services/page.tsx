@@ -6,6 +6,7 @@ import LazyLottie from "../components/Lottie";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { isInitialLoad } from "../utils/isInitialLoad";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -13,14 +14,14 @@ const page = () => {
   const container = React.useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
+    const heroDelay = isInitialLoad ? 2.5 : 0.2;
+
     gsap.from(".service-block", {
-      scrollTrigger: { trigger: ".service-block", start: "top 80%" },
-      y: 50, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out"
+      y: 50, opacity: 0, duration: 0.8, stagger: 0.2, delay: heroDelay, ease: "power3.out"
     });
 
     gsap.from(".service-anim", {
-      scrollTrigger: { trigger: ".service-block", start: "top 80%" },
-      scale: 0.8, opacity: 0, duration: 1, ease: "power3.out"
+      scale: 0.8, opacity: 0, duration: 1, delay: heroDelay + 0.2, ease: "power3.out"
     });
     
     // Animate all sections
